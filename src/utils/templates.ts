@@ -1,0 +1,361 @@
+import type { FormTemplate } from '@/types'
+import { generateId } from './helpers'
+
+export const templates: FormTemplate[] = [
+  {
+    id: 'leave-application',
+    name: '请假申请',
+    description: '员工请假申请表单，包含请假类型、时间、事由等字段',
+    config: {
+      title: '请假申请',
+      description: '请填写以下信息申请请假',
+      submitButtonText: '提交申请',
+      allowDraft: true,
+      submitMessage: '请假申请已提交，请等待审批',
+      steps: [
+        { id: generateId(), title: '基本信息' },
+        { id: generateId(), title: '请假详情' }
+      ],
+      fields: [
+        {
+          id: generateId(),
+          type: 'input',
+          label: '姓名',
+          placeholder: '请输入姓名',
+          required: true,
+          step: 0
+        },
+        {
+          id: generateId(),
+          type: 'input',
+          label: '工号',
+          placeholder: '请输入工号',
+          required: true,
+          step: 0
+        },
+        {
+          id: generateId(),
+          type: 'select',
+          label: '部门',
+          placeholder: '请选择部门',
+          required: true,
+          step: 0,
+          options: [
+            { label: '技术部', value: 'tech' },
+            { label: '产品部', value: 'product' },
+            { label: '市场部', value: 'market' },
+            { label: '人事部', value: 'hr' },
+            { label: '财务部', value: 'finance' }
+          ]
+        },
+        {
+          id: generateId(),
+          type: 'radio',
+          label: '请假类型',
+          required: true,
+          step: 1,
+          options: [
+            { label: '年假', value: 'annual' },
+            { label: '病假', value: 'sick' },
+            { label: '事假', value: 'personal' },
+            { label: '婚假', value: 'marriage' },
+            { label: '产假', value: 'maternity' }
+          ]
+        },
+        {
+          id: generateId(),
+          type: 'date',
+          label: '开始日期',
+          required: true,
+          step: 1
+        },
+        {
+          id: generateId(),
+          type: 'date',
+          label: '结束日期',
+          required: true,
+          step: 1
+        },
+        {
+          id: generateId(),
+          type: 'number',
+          label: '请假天数',
+          placeholder: '请输入天数',
+          required: true,
+          min: 0.5,
+          step: 1
+        },
+        {
+          id: generateId(),
+          type: 'textarea',
+          label: '请假事由',
+          placeholder: '请详细说明请假原因',
+          required: true,
+          rows: 4,
+          step: 1
+        },
+        {
+          id: generateId(),
+          type: 'file',
+          label: '附件上传',
+          placeholder: '如有需要请上传相关证明',
+          accept: 'image/*,.pdf,.doc,.docx',
+          step: 1
+        }
+      ]
+    }
+  },
+  {
+    id: 'satisfaction-survey',
+    name: '满意度调查',
+    description: '客户满意度调查问卷，包含评分、单选、多选等评价字段',
+    config: {
+      title: '满意度调查',
+      description: '感谢您抽出宝贵时间填写这份调查问卷，您的反馈对我们非常重要',
+      submitButtonText: '提交问卷',
+      allowDraft: false,
+      submitMessage: '感谢您的参与，您的反馈已记录',
+      steps: [
+        { id: generateId(), title: '基本信息' },
+        { id: generateId(), title: '服务评价' },
+        { id: generateId(), title: '建议反馈' }
+      ],
+      fields: [
+        {
+          id: generateId(),
+          type: 'input',
+          label: '您的姓名',
+          placeholder: '选填，可匿名填写',
+          required: false,
+          step: 0
+        },
+        {
+          id: generateId(),
+          type: 'input',
+          label: '联系电话',
+          placeholder: '请输入手机号（选填）',
+          required: false,
+          step: 0,
+          validationRules: [
+            { type: 'regex', value: '^1[3-9]\\d{9}$', message: '请输入正确的手机号' }
+          ]
+        },
+        {
+          id: generateId(),
+          type: 'rate',
+          label: '整体满意度',
+          required: true,
+          step: 1,
+          max: 5
+        },
+        {
+          id: generateId(),
+          type: 'radio',
+          label: '您是通过什么渠道了解到我们的',
+          required: true,
+          step: 1,
+          options: [
+            { label: '搜索引擎', value: 'search' },
+            { label: '朋友推荐', value: 'friend' },
+            { label: '社交媒体', value: 'social' },
+            { label: '线下广告', value: 'offline' },
+            { label: '其他', value: 'other' }
+          ]
+        },
+        {
+          id: generateId(),
+          type: 'checkbox',
+          label: '您最喜欢我们哪些方面（可多选）',
+          required: false,
+          step: 1,
+          options: [
+            { label: '产品质量', value: 'quality' },
+            { label: '服务态度', value: 'service' },
+            { label: '价格合理', value: 'price' },
+            { label: '响应速度', value: 'speed' },
+            { label: '售后服务', value: 'aftersale' }
+          ]
+        },
+        {
+          id: generateId(),
+          type: 'rate',
+          label: '服务人员专业度评价',
+          required: true,
+          step: 2,
+          max: 5
+        },
+        {
+          id: generateId(),
+          type: 'textarea',
+          label: '您的建议和意见',
+          placeholder: '请告诉我们您的想法，帮助我们做得更好',
+          required: false,
+          rows: 5,
+          step: 2
+        },
+        {
+          id: generateId(),
+          type: 'switch',
+          label: '是否愿意接受后续回访',
+          defaultValue: false,
+          step: 2
+        }
+      ]
+    }
+  },
+  {
+    id: 'activity-registration',
+    name: '活动报名',
+    description: '活动报名表单，包含个人信息、人数统计、特殊需求等字段',
+    config: {
+      title: '活动报名',
+      description: '请填写以下信息完成活动报名',
+      submitButtonText: '确认报名',
+      allowDraft: true,
+      submitMessage: '报名成功！我们将尽快与您联系确认',
+      steps: [
+        { id: generateId(), title: '报名信息' }
+      ],
+      fields: [
+        {
+          id: generateId(),
+          type: 'input',
+          label: '姓名',
+          placeholder: '请输入您的姓名',
+          required: true,
+          step: 0
+        },
+        {
+          id: generateId(),
+          type: 'input',
+          label: '手机号码',
+          placeholder: '请输入手机号码',
+          required: true,
+          step: 0,
+          validationRules: [
+            { type: 'regex', value: '^1[3-9]\\d{9}$', message: '请输入正确的手机号' }
+          ]
+        },
+        {
+          id: generateId(),
+          type: 'select',
+          label: '性别',
+          placeholder: '请选择性别',
+          required: true,
+          step: 0,
+          options: [
+            { label: '男', value: 'male' },
+            { label: '女', value: 'female' }
+          ]
+        },
+        {
+          id: generateId(),
+          type: 'number',
+          label: '年龄',
+          placeholder: '请输入年龄',
+          required: true,
+          min: 1,
+          max: 120,
+          step: 0
+        },
+        {
+          id: generateId(),
+          type: 'number',
+          label: '报名人数',
+          placeholder: '请输入报名人数',
+          required: true,
+          min: 1,
+          defaultValue: 1,
+          step: 0
+        },
+        {
+          id: generateId(),
+          type: 'date',
+          label: '期望参加日期',
+          required: true,
+          step: 0
+        },
+        {
+          id: generateId(),
+          type: 'time',
+          label: '期望时间',
+          required: true,
+          step: 0
+        },
+        {
+          id: generateId(),
+          type: 'cascader',
+          label: '所在地区',
+          placeholder: '请选择省/市/区',
+          required: true,
+          step: 0,
+          options: [
+            {
+              label: '北京市',
+              value: 'beijing',
+              children: [
+                { label: '东城区', value: 'dongcheng' },
+                { label: '西城区', value: 'xicheng' },
+                { label: '朝阳区', value: 'chaoyang' },
+                { label: '海淀区', value: 'haidian' }
+              ]
+            },
+            {
+              label: '上海市',
+              value: 'shanghai',
+              children: [
+                { label: '黄浦区', value: 'huangpu' },
+                { label: '徐汇区', value: 'xuhui' },
+                { label: '静安区', value: 'jingan' },
+                { label: '浦东新区', value: 'pudong' }
+              ]
+            },
+            {
+              label: '广东省',
+              value: 'guangdong',
+              children: [
+                {
+                  label: '广州市',
+                  value: 'guangzhou',
+                  children: [
+                    { label: '天河区', value: 'tianhe' },
+                    { label: '越秀区', value: 'yuexiu' },
+                    { label: '海珠区', value: 'haizhu' }
+                  ]
+                },
+                {
+                  label: '深圳市',
+                  value: 'shenzhen',
+                  children: [
+                    { label: '南山区', value: 'nanshan' },
+                    { label: '福田区', value: 'futian' },
+                    { label: '宝安区', value: 'baoan' }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          id: generateId(),
+          type: 'textarea',
+          label: '特殊需求或备注',
+          placeholder: '如有特殊需求请在此说明',
+          required: false,
+          rows: 3,
+          step: 0
+        },
+        {
+          id: generateId(),
+          type: 'signature',
+          label: '电子签名',
+          placeholder: '请在下方签名确认',
+          required: true,
+          step: 0,
+          width: 400,
+          height: 150
+        }
+      ]
+    }
+  }
+]
