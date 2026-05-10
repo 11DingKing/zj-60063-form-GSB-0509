@@ -1,4 +1,4 @@
-export type FieldType = 
+export type FieldType =
   | 'input'
   | 'textarea'
   | 'number'
@@ -135,7 +135,7 @@ export interface GroupField extends BaseField {
   collapsed?: boolean
 }
 
-export type Field = 
+export type Field =
   | InputField
   | TextareaField
   | NumberField

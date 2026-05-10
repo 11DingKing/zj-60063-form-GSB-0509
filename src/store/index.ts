@@ -34,24 +34,24 @@ export const useFormStore = defineStore('form', {
     selectedFieldId: null,
     forms: loadFromStorage<FormConfig[]>(STORAGE_KEY_FORMS, []),
     submissions: loadFromStorage<SubmissionRecord[]>(STORAGE_KEY_SUBMISSIONS, []),
-    isPreviewMode: false
+    isPreviewMode: false,
   }),
 
   getters: {
     currentForm: (state): FormConfig | undefined => {
-      return state.forms.find(f => f.id === state.currentFormId)
+      return state.forms.find((f) => f.id === state.currentFormId)
     },
-    
+
     currentFormFields: (state): Field[] => {
-      const form = state.forms.find(f => f.id === state.currentFormId)
+      const form = state.forms.find((f) => f.id === state.currentFormId)
       return form?.fields || []
     },
-    
+
     selectedField: (state): Field | undefined => {
       if (!state.selectedFieldId) return undefined
-      const form = state.forms.find(f => f.id === state.currentFormId)
+      const form = state.forms.find((f) => f.id === state.currentFormId)
       if (!form) return undefined
-      
+
       const findField = (fields: Field[]): Field | undefined => {
         for (const field of fields) {
           if (field.id === state.selectedFieldId) return field
@@ -62,21 +62,25 @@ export const useFormStore = defineStore('form', {
         }
         return undefined
       }
-      
+
       return findField(form.fields)
     },
-    
+
     templates: (): FormTemplate[] => {
       return templates
     },
-    
-    getFormById: (state) => (id: string): FormConfig | undefined => {
-      return state.forms.find(f => f.id === id)
-    },
-    
-    getSubmissionsByFormId: (state) => (formId: string): SubmissionRecord[] => {
-      return state.submissions.filter(s => s.formId === formId)
-    }
+
+    getFormById:
+      (state) =>
+        (id: string): FormConfig | undefined => {
+          return state.forms.find((f) => f.id === id)
+        },
+
+    getSubmissionsByFormId:
+      (state) =>
+        (formId: string): SubmissionRecord[] => {
+          return state.submissions.filter((s) => s.formId === formId)
+        },
   },
 
   actions: {
@@ -93,9 +97,9 @@ export const useFormStore = defineStore('form', {
         fields: [],
         isPublished: false,
         createdAt: now,
-        updatedAt: now
+        updatedAt: now,
       }
-      
+
       this.forms.push(newForm)
       this.currentFormId = newForm.id
       this.selectedFieldId = null
@@ -104,7 +108,7 @@ export const useFormStore = defineStore('form', {
     },
 
     loadForm(id: string) {
-      const form = this.forms.find(f => f.id === id)
+      const form = this.forms.find((f) => f.id === id)
       if (form) {
         this.currentFormId = id
         this.selectedFieldId = null
@@ -114,8 +118,8 @@ export const useFormStore = defineStore('form', {
 
     saveCurrentForm() {
       if (!this.currentFormId) return
-      
-      const index = this.forms.findIndex(f => f.id === this.currentFormId)
+
+      const index = this.forms.findIndex((f) => f.id === this.currentFormId)
       if (index !== -1) {
         this.forms[index].updatedAt = new Date().toISOString()
         this.saveForms()
@@ -128,8 +132,8 @@ export const useFormStore = defineStore('form', {
 
     publishForm() {
       if (!this.currentFormId) return
-      
-      const index = this.forms.findIndex(f => f.id === this.currentFormId)
+
+      const index = this.forms.findIndex((f) => f.id === this.currentFormId)
       if (index !== -1) {
         this.forms[index].isPublished = true
         this.forms[index].publishedAt = new Date().toISOString()
@@ -139,14 +143,14 @@ export const useFormStore = defineStore('form', {
     },
 
     deleteForm(id: string) {
-      const index = this.forms.findIndex(f => f.id === id)
+      const index = this.forms.findIndex((f) => f.id === id)
       if (index !== -1) {
         this.forms.splice(index, 1)
         if (this.currentFormId === id) {
           this.currentFormId = null
           this.selectedFieldId = null
         }
-        this.submissions = this.submissions.filter(s => s.formId !== id)
+        this.submissions = this.submissions.filter((s) => s.formId !== id)
         this.saveForms()
         this.saveSubmissions()
       }
@@ -154,18 +158,22 @@ export const useFormStore = defineStore('form', {
 
     updateFormConfig(updates: Partial<FormConfig>) {
       if (!this.currentFormId) return
-      
-      const index = this.forms.findIndex(f => f.id === this.currentFormId)
+
+      const index = this.forms.findIndex((f) => f.id === this.currentFormId)
       if (index !== -1) {
-        this.forms[index] = { ...this.forms[index], ...updates, updatedAt: new Date().toISOString() }
+        this.forms[index] = {
+          ...this.forms[index],
+          ...updates,
+          updatedAt: new Date().toISOString(),
+        }
         this.saveForms()
       }
     },
 
     addField(field: Field, targetIndex?: number, parentGroupId?: string) {
       if (!this.currentFormId) return
-      
-      const index = this.forms.findIndex(f => f.id === this.currentFormId)
+
+      const index = this.forms.findIndex((f) => f.id === this.currentFormId)
       if (index === -1) return
 
       if (parentGroupId) {
@@ -194,15 +202,15 @@ export const useFormStore = defineStore('form', {
           this.forms[index].fields.push(field)
         }
       }
-      
+
       this.selectedFieldId = field.id
       this.saveCurrentForm()
     },
 
     updateField(fieldId: string, updates: Partial<Field>) {
       if (!this.currentFormId) return
-      
-      const index = this.forms.findIndex(f => f.id === this.currentFormId)
+
+      const index = this.forms.findIndex((f) => f.id === this.currentFormId)
       if (index === -1) return
 
       const updateInFields = (fields: Field[]): boolean => {
@@ -219,19 +227,19 @@ export const useFormStore = defineStore('form', {
         }
         return false
       }
-      
+
       updateInFields(this.forms[index].fields)
       this.saveCurrentForm()
     },
 
     deleteField(fieldId: string) {
       if (!this.currentFormId) return
-      
-      const index = this.forms.findIndex(f => f.id === this.currentFormId)
+
+      const index = this.forms.findIndex((f) => f.id === this.currentFormId)
       if (index === -1) return
 
       const deleteFromFields = (fields: Field[]): boolean => {
-        const fieldIndex = fields.findIndex(f => f.id === fieldId)
+        const fieldIndex = fields.findIndex((f) => f.id === fieldId)
         if (fieldIndex !== -1) {
           fields.splice(fieldIndex, 1)
           return true
@@ -243,20 +251,20 @@ export const useFormStore = defineStore('form', {
         }
         return false
       }
-      
+
       deleteFromFields(this.forms[index].fields)
-      
+
       if (this.selectedFieldId === fieldId) {
         this.selectedFieldId = null
       }
-      
+
       this.saveCurrentForm()
     },
 
     moveField(fromIndex: number, toIndex: number, parentGroupId?: string) {
       if (!this.currentFormId) return
-      
-      const index = this.forms.findIndex(f => f.id === this.currentFormId)
+
+      const index = this.forms.findIndex((f) => f.id === this.currentFormId)
       if (index === -1) return
 
       if (parentGroupId) {
@@ -278,7 +286,7 @@ export const useFormStore = defineStore('form', {
         const [removed] = this.forms[index].fields.splice(fromIndex, 1)
         this.forms[index].fields.splice(toIndex, 0, removed)
       }
-      
+
       this.saveCurrentForm()
     },
 
@@ -287,7 +295,7 @@ export const useFormStore = defineStore('form', {
     },
 
     loadTemplate(templateId: string) {
-      const template = templates.find(t => t.id === templateId)
+      const template = templates.find((t) => t.id === templateId)
       if (!template) return null
 
       const now = new Date().toISOString()
@@ -295,11 +303,11 @@ export const useFormStore = defineStore('form', {
         id: generateId(),
         ...template.config,
         createdAt: now,
-        updatedAt: now
+        updatedAt: now,
       }
-      
+
       const reassignIds = (fields: Field[]): Field[] => {
-        return fields.map(field => {
+        return fields.map((field) => {
           const newField = { ...field, id: generateId() }
           if (newField.type === 'group') {
             ;(newField as any).children = reassignIds((newField as any).children)
@@ -307,15 +315,15 @@ export const useFormStore = defineStore('form', {
           return newField
         })
       }
-      
+
       newForm.fields = reassignIds(newForm.fields)
-      newForm.steps = newForm.steps.map(step => ({ ...step, id: generateId() }))
-      
+      newForm.steps = newForm.steps.map((step) => ({ ...step, id: generateId() }))
+
       this.forms.push(newForm)
       this.currentFormId = newForm.id
       this.selectedFieldId = null
       this.saveForms()
-      
+
       return newForm
     },
 
@@ -324,16 +332,16 @@ export const useFormStore = defineStore('form', {
         id: generateId(),
         formId,
         data,
-        submittedAt: new Date().toISOString()
+        submittedAt: new Date().toISOString(),
       }
-      
+
       this.submissions.push(submission)
       this.saveSubmissions()
       return submission
     },
 
     deleteSubmission(id: string) {
-      const index = this.submissions.findIndex(s => s.id === id)
+      const index = this.submissions.findIndex((s) => s.id === id)
       if (index !== -1) {
         this.submissions.splice(index, 1)
         this.saveSubmissions()
@@ -343,7 +351,7 @@ export const useFormStore = defineStore('form', {
     saveDraft(formId: string, data: Record<string, any>) {
       saveToStorage(STORAGE_KEY_DRAFT + formId, {
         data,
-        savedAt: new Date().toISOString()
+        savedAt: new Date().toISOString(),
       })
     },
 
@@ -365,6 +373,6 @@ export const useFormStore = defineStore('form', {
 
     saveSubmissions() {
       saveToStorage(STORAGE_KEY_SUBMISSIONS, this.submissions)
-    }
-  }
+    },
+  },
 })

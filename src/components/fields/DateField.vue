@@ -22,21 +22,21 @@ import type { DateField as DateFieldType } from '@/types'
 import { validateField } from '@/utils/helpers'
 import FieldWrapper from './FieldWrapper.vue'
 
-interface Props {
-  field: DateFieldType
-  modelValue?: string
-  disabled?: boolean
-}
+  interface Props {
+    field: DateFieldType
+    modelValue?: string
+    disabled?: boolean
+  }
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: '',
-  disabled: false
+  disabled: false,
 })
 
 const emit = defineEmits<{
-  'update:modelValue': [value: string]
-  'change': [value: string]
-}>()
+    'update:modelValue': [value: string]
+    change: [value: string]
+  }>()
 
 const hasError = ref(false)
 const errorMessage = ref('')
@@ -49,15 +49,15 @@ function handleInput(event: Event) {
 
 function validate() {
   const rules: any[] = []
-  
+
   if (props.field.required) {
     rules.push({ type: 'required' })
   }
-  
+
   if (props.field.validationRules) {
     rules.push(...props.field.validationRules)
   }
-  
+
   const result = validateField(props.modelValue, rules)
   hasError.value = !result.valid
   errorMessage.value = result.message || ''
@@ -65,7 +65,7 @@ function validate() {
 </script>
 
 <style scoped>
-.date-input {
-  width: 100%;
-}
+  .date-input {
+    width: 100%;
+  }
 </style>

@@ -29,39 +29,55 @@ const SignatureField = defineAsyncComponent(() => import('./SignatureField.vue')
 const DividerField = defineAsyncComponent(() => import('./DividerField.vue'))
 const GroupField = defineAsyncComponent(() => import('./GroupField.vue'))
 
-interface Props {
-  field: Field
-  modelValue?: any
-  disabled?: boolean
-}
+  interface Props {
+    field: Field
+    modelValue?: any
+    disabled?: boolean
+  }
 
 const props = withDefaults(defineProps<Props>(), {
-  disabled: false
+  disabled: false,
 })
 
 const emit = defineEmits<{
-  'update:modelValue': [value: any]
-  'change': [value: any]
-}>()
+    'update:modelValue': [value: any]
+    change: [value: any]
+  }>()
 
 const fieldComponent = computed(() => {
   switch (props.field.type) {
-    case 'input': return InputField
-    case 'textarea': return TextareaField
-    case 'number': return NumberField
-    case 'radio': return RadioField
-    case 'checkbox': return CheckboxField
-    case 'select': return SelectField
-    case 'date': return DateField
-    case 'time': return TimeField
-    case 'file': return FileField
-    case 'rate': return RateField
-    case 'switch': return SwitchField
-    case 'cascader': return CascaderField
-    case 'signature': return SignatureField
-    case 'divider': return DividerField
-    case 'group': return GroupField
-    default: return InputField
+      case 'input':
+        return InputField
+      case 'textarea':
+        return TextareaField
+      case 'number':
+        return NumberField
+      case 'radio':
+        return RadioField
+      case 'checkbox':
+        return CheckboxField
+      case 'select':
+        return SelectField
+      case 'date':
+        return DateField
+      case 'time':
+        return TimeField
+      case 'file':
+        return FileField
+      case 'rate':
+        return RateField
+      case 'switch':
+        return SwitchField
+      case 'cascader':
+        return CascaderField
+      case 'signature':
+        return SignatureField
+      case 'divider':
+        return DividerField
+      case 'group':
+        return GroupField
+      default:
+        return InputField
   }
 })
 

@@ -2,9 +2,17 @@
   <div class="designer-view">
     <div class="designer-view__header">
       <div class="designer-view__header-left">
-        <button class="designer-view__btn designer-view__btn--ghost" @click="goBack">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
+        <button
+          class="designer-view__btn designer-view__btn--ghost"
+          @click="goBack"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M19 12H5M12 19l-7-7 7-7" />
           </svg>
           返回
         </button>
@@ -18,7 +26,7 @@
           />
         </div>
       </div>
-      
+
       <div class="designer-view__header-right">
         <button
           class="designer-view__btn designer-view__btn--secondary"
@@ -52,12 +60,12 @@
         </button>
       </div>
     </div>
-    
+
     <div class="designer-view__body">
       <div class="designer-view__panel designer-view__panel--left">
         <ComponentPanel />
       </div>
-      
+
       <div class="designer-view__canvas">
         <CanvasArea
           :form-config="formStore.currentForm"
@@ -68,7 +76,7 @@
           @delete-field="formStore.deleteField"
         />
       </div>
-      
+
       <div class="designer-view__panel designer-view__panel--right">
         <PropertyPanel
           :form-config="formStore.currentForm"
@@ -78,15 +86,27 @@
         />
       </div>
     </div>
-    
+
     <Teleport to="body">
-      <div v-if="showPreview" class="designer-view__modal-overlay" @click.self="showPreview = false">
+      <div
+        v-if="showPreview"
+        class="designer-view__modal-overlay"
+        @click.self="showPreview = false"
+      >
         <div class="designer-view__modal designer-view__modal--preview">
           <div class="designer-view__modal-header">
             <h3 class="designer-view__modal-title">预览表单</h3>
-            <button class="designer-view__modal-close" @click="showPreview = false">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 6L6 18M6 6l12 12"/>
+            <button
+              class="designer-view__modal-close"
+              @click="showPreview = false"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M18 6L6 18M6 6l12 12" />
               </svg>
             </button>
           </div>
@@ -98,14 +118,26 @@
           </div>
         </div>
       </div>
-      
-      <div v-if="showConfigModal" class="designer-view__modal-overlay" @click.self="showConfigModal = false">
+
+      <div
+        v-if="showConfigModal"
+        class="designer-view__modal-overlay"
+        @click.self="showConfigModal = false"
+      >
         <div class="designer-view__modal designer-view__modal--config">
           <div class="designer-view__modal-header">
             <h3 class="designer-view__modal-title">表单配置</h3>
-            <button class="designer-view__modal-close" @click="showConfigModal = false">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 6L6 18M6 6l12 12"/>
+            <button
+              class="designer-view__modal-close"
+              @click="showConfigModal = false"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M18 6L6 18M6 6l12 12" />
               </svg>
             </button>
           </div>
@@ -119,7 +151,7 @@
                 placeholder="请输入表单标题"
               />
             </div>
-            
+
             <div class="form-config-group">
               <label class="form-config-label">表单描述</label>
               <textarea
@@ -129,7 +161,7 @@
                 rows="3"
               ></textarea>
             </div>
-            
+
             <div class="form-config-group">
               <label class="form-config-label">提交按钮文字</label>
               <input
@@ -139,7 +171,7 @@
                 placeholder="提交"
               />
             </div>
-            
+
             <div class="form-config-group">
               <label class="form-config-label">提交后提示语</label>
               <textarea
@@ -149,19 +181,16 @@
                 rows="2"
               ></textarea>
             </div>
-            
+
             <div class="form-config-group">
               <label class="form-config-checkbox">
-                <input
-                  v-model="localConfig.allowDraft"
-                  type="checkbox"
-                />
+                <input v-model="localConfig.allowDraft" type="checkbox" />
                 <span>允许暂存草稿</span>
               </label>
             </div>
-            
+
             <div class="form-config-divider"></div>
-            
+
             <div class="form-config-group">
               <label class="form-config-label">
                 步骤配置
@@ -186,8 +215,13 @@
                     class="form-config-step-remove"
                     @click="removeStep(index)"
                   >
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M18 6L6 18M6 6l12 12"/>
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M18 6L6 18M6 6l12 12" />
                     </svg>
                   </button>
                 </div>
@@ -196,8 +230,13 @@
                   class="form-config-step-add"
                   @click="addStep"
                 >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 5v14M5 12h14"/>
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M12 5v14M5 12h14" />
                   </svg>
                   添加步骤
                 </button>
@@ -205,23 +244,41 @@
             </div>
           </div>
           <div class="designer-view__modal-footer">
-            <button class="designer-view__btn designer-view__btn--secondary" @click="showConfigModal = false">
+            <button
+              class="designer-view__btn designer-view__btn--secondary"
+              @click="showConfigModal = false"
+            >
               取消
             </button>
-            <button class="designer-view__btn designer-view__btn--primary" @click="saveFormConfig">
+            <button
+              class="designer-view__btn designer-view__btn--primary"
+              @click="saveFormConfig"
+            >
               保存配置
             </button>
           </div>
         </div>
       </div>
-      
-      <div v-if="showTemplateModal" class="designer-view__modal-overlay" @click.self="showTemplateModal = false">
+
+      <div
+        v-if="showTemplateModal"
+        class="designer-view__modal-overlay"
+        @click.self="showTemplateModal = false"
+      >
         <div class="designer-view__modal designer-view__modal--template">
           <div class="designer-view__modal-header">
             <h3 class="designer-view__modal-title">选择模板</h3>
-            <button class="designer-view__modal-close" @click="showTemplateModal = false">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 6L6 18M6 6l12 12"/>
+            <button
+              class="designer-view__modal-close"
+              @click="showTemplateModal = false"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M18 6L6 18M6 6l12 12" />
               </svg>
             </button>
           </div>
@@ -238,25 +295,38 @@
                 </div>
                 <div class="template-item__info">
                   <h4 class="template-item__name">{{ template.name }}</h4>
-                  <p class="template-item__description">{{ template.description }}</p>
+                  <p class="template-item__description">
+                    {{ template.description }}
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
-      <div v-if="showPublishSuccess" class="designer-view__modal-overlay" @click.self="showPublishSuccess = false">
+
+      <div
+        v-if="showPublishSuccess"
+        class="designer-view__modal-overlay"
+        @click.self="showPublishSuccess = false"
+      >
         <div class="designer-view__modal designer-view__modal--publish">
           <div class="designer-view__modal-body">
             <div class="publish-success">
               <div class="publish-success__icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="20 6 9 17 4 12"/>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polyline points="20 6 9 17 4 12" />
                 </svg>
               </div>
               <h3 class="publish-success__title">发布成功！</h3>
-              <p class="publish-success__description">复制以下链接分享给他人填写</p>
+              <p class="publish-success__description">
+                复制以下链接分享给他人填写
+              </p>
               <div class="publish-success__link">
                 <input
                   ref="publishLinkInput"
@@ -285,113 +355,119 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, reactive, watch, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useFormStore } from '@/store'
-import { storeToRefs } from 'pinia'
-import type { FormConfig, StepConfig, FormTemplate, Field } from '@/types'
-import { templates } from '@/utils/templates'
-import { generateId } from '@/utils/helpers'
-import ComponentPanel from '@/components/designer/ComponentPanel.vue'
-import CanvasArea from '@/components/designer/CanvasArea.vue'
-import PropertyPanel from '@/components/designer/PropertyPanel.vue'
-import FormRenderer from '@/components/FormRenderer.vue'
+import { ref, computed, reactive, watch, onMounted } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { useFormStore } from "@/store";
+import { storeToRefs } from "pinia";
+import type { FormConfig, StepConfig, FormTemplate, Field } from "@/types";
+import { templates } from "@/utils/templates";
+import { generateId } from "@/utils/helpers";
+import ComponentPanel from "@/components/designer/ComponentPanel.vue";
+import CanvasArea from "@/components/designer/CanvasArea.vue";
+import PropertyPanel from "@/components/designer/PropertyPanel.vue";
+import FormRenderer from "@/components/FormRenderer.vue";
 
-const route = useRoute()
-const router = useRouter()
-const formStore = useFormStore()
-const publishLinkInput = ref<HTMLInputElement | null>(null)
+const route = useRoute();
+const router = useRouter();
+const formStore = useFormStore();
+const publishLinkInput = ref<HTMLInputElement | null>(null);
 
-const { currentForm, selectedFieldId, selectedField } = storeToRefs(formStore)
+const { currentForm, selectedFieldId, selectedField } = storeToRefs(formStore);
 
 const formTitle = computed({
-  get: () => currentForm.value?.title || '',
+  get: () => currentForm.value?.title || "",
   set: (value) => {
     if (currentForm.value) {
-      currentForm.value.title = value
+      currentForm.value.title = value;
     }
-  }
-})
+  },
+});
 
-const showPreview = ref(false)
-const showConfigModal = ref(false)
-const showTemplateModal = ref(false)
-const showPublishSuccess = ref(false)
-const publishLink = ref('')
+const showPreview = ref(false);
+const showConfigModal = ref(false);
+const showTemplateModal = ref(false);
+const showPublishSuccess = ref(false);
+const publishLink = ref("");
 
 const localConfig = reactive<Partial<FormConfig>>({
-  title: '',
-  description: '',
-  submitButtonText: '提交',
-  submitMessage: '提交成功！感谢您的填写。',
+  title: "",
+  description: "",
+  submitButtonText: "提交",
+  submitMessage: "提交成功！感谢您的填写。",
   allowDraft: false,
-  steps: [{ id: generateId(), title: '步骤 1' }]
-})
+  steps: [{ id: generateId(), title: "步骤 1" }],
+});
 
 watch(
   () => currentForm.value,
   (form) => {
     if (form) {
-      localConfig.title = form.title
-      localConfig.description = form.description
-      localConfig.submitButtonText = form.submitButtonText
-      localConfig.submitMessage = form.submitMessage
-      localConfig.allowDraft = form.allowDraft
-      localConfig.steps = JSON.parse(JSON.stringify(form.steps || [{ id: generateId(), title: '步骤 1' }]))
+      localConfig.title = form.title;
+      localConfig.description = form.description;
+      localConfig.submitButtonText = form.submitButtonText;
+      localConfig.submitMessage = form.submitMessage;
+      localConfig.allowDraft = form.allowDraft;
+      localConfig.steps = JSON.parse(
+        JSON.stringify(form.steps || [{ id: generateId(), title: "步骤 1" }]),
+      );
     }
   },
-  { immediate: true, deep: true }
-)
+  { immediate: true, deep: true },
+);
 
 onMounted(() => {
-  const formId = route.params.id as string
+  const formId = route.params.id as string;
   if (formId) {
-    const form = formStore.loadForm(formId)
+    const form = formStore.loadForm(formId);
     if (!form) {
-      router.push('/')
+      router.push("/");
     }
   } else {
     if (!formStore.currentFormId) {
-      formStore.createNewForm()
+      formStore.createNewForm();
     }
   }
-})
+});
 
 function goBack() {
-  router.push('/')
+  router.push("/");
 }
 
 function handleAddField(field: Field, targetIndex?: number, parentId?: string) {
-  formStore.addField(field, targetIndex, parentId)
+  formStore.addField(field, targetIndex, parentId);
 }
 
 function handleUpdateField(fieldId: string, updates: any) {
-  formStore.updateField(fieldId, updates)
+  formStore.updateField(fieldId, updates);
 }
 
-function handleMoveField(fieldId: string, targetIndex: number, parentId?: string) {
-  formStore.moveField(fieldId, targetIndex, parentId)
+function handleMoveField(
+  fieldId: string,
+  targetIndex: number,
+  parentId?: string,
+) {
+  formStore.moveField(fieldId, targetIndex, parentId);
 }
 
 function handleUpdateFormConfig(updates: Partial<FormConfig>) {
-  formStore.updateForm(updates)
+  formStore.updateForm(updates);
 }
 
 function updateFormConfig() {
   if (currentForm.value) {
-    formStore.updateForm({ title: currentForm.value.title })
+    formStore.updateForm({ title: currentForm.value.title });
   }
 }
 
 function saveForm() {
-  formStore.saveForm()
+  formStore.saveForm();
 }
 
 function publishForm() {
   if (currentForm.value) {
-    formStore.publishForm()
-    publishLink.value = `${window.location.origin}/fill/${currentForm.value.id}`
-    showPublishSuccess.value = true
+    formStore.publishForm();
+    publishLink.value = `${window.location.origin}/fill/${currentForm.value.id}`;
+    showPublishSuccess.value = true;
   }
 }
 
@@ -402,40 +478,40 @@ function saveFormConfig() {
     submitButtonText: localConfig.submitButtonText,
     submitMessage: localConfig.submitMessage,
     allowDraft: localConfig.allowDraft,
-    steps: JSON.parse(JSON.stringify(localConfig.steps))
-  })
-  showConfigModal.value = false
+    steps: JSON.parse(JSON.stringify(localConfig.steps)),
+  });
+  showConfigModal.value = false;
 }
 
 function addStep() {
   const newStep: StepConfig = {
     id: generateId(),
-    title: `步骤 ${localConfig.steps.length + 1}`
-  }
-  localConfig.steps.push(newStep)
+    title: `步骤 ${localConfig.steps.length + 1}`,
+  };
+  localConfig.steps.push(newStep);
 }
 
 function removeStep(index: number) {
   if (localConfig.steps.length > 1) {
-    localConfig.steps.splice(index, 1)
+    localConfig.steps.splice(index, 1);
   }
 }
 
 function loadTemplate(template: FormTemplate) {
-  formStore.loadTemplate(template.id)
-  showTemplateModal.value = false
+  formStore.loadTemplate(template.id);
+  showTemplateModal.value = false;
 }
 
 function handlePreviewSubmit(data: Record<string, any>) {
-  console.log('预览提交数据:', data)
-  alert('表单提交成功！（预览模式）')
+  console.warn("预览提交数据:", data);
+  alert("表单提交成功！（预览模式）");
 }
 
 function copyPublishLink() {
   if (publishLinkInput.value) {
-    publishLinkInput.value.select()
-    document.execCommand('copy')
-    alert('链接已复制到剪贴板！')
+    publishLinkInput.value.select();
+    document.execCommand("copy");
+    alert("链接已复制到剪贴板！");
   }
 }
 </script>
