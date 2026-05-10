@@ -13,7 +13,7 @@
           class="rate-star"
           :class="{
             'rate-star--active': i <= currentValue,
-            'rate-star--half': field.allowHalf && i - 0.5 === currentValue
+            'rate-star--half': field.allowHalf && i - 0.5 === currentValue,
           }"
           @click="handleClick(i)"
           @mousemove="handleMouseMove($event, i)"
@@ -40,21 +40,21 @@ import type { RateField as RateFieldType } from '@/types'
 import { validateField } from '@/utils/helpers'
 import FieldWrapper from './FieldWrapper.vue'
 
-interface Props {
-  field: RateFieldType
-  modelValue?: number | null
-  disabled?: boolean
-}
+  interface Props {
+    field: RateFieldType
+    modelValue?: number | null
+    disabled?: boolean
+  }
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: null,
-  disabled: false
+  disabled: false,
 })
 
 const emit = defineEmits<{
-  'update:modelValue': [value: number | null]
-  'change': [value: number | null]
-}>()
+    'update:modelValue': [value: number | null]
+    change: [value: number | null]
+  }>()
 
 const hasError = ref(false)
 const errorMessage = ref('')
@@ -72,7 +72,7 @@ const currentValue = computed(() => {
 
 function handleClick(index: number) {
   if (props.field.readonly || props.disabled) return
-  
+
   const value = index
   emit('update:modelValue', value)
   emit('change', value)
@@ -81,7 +81,7 @@ function handleClick(index: number) {
 
 function handleMouseMove(event: MouseEvent, index: number) {
   if (props.field.readonly || props.disabled) return
-  
+
   if (props.field.allowHalf) {
     const rect = (event.target as HTMLElement).getBoundingClientRect()
     const isHalf = event.clientX - rect.left < rect.width / 2
@@ -97,15 +97,15 @@ function handleMouseLeave() {
 
 function validate() {
   const rules: any[] = []
-  
+
   if (props.field.required) {
     rules.push({ type: 'required' })
   }
-  
+
   if (props.field.validationRules) {
     rules.push(...props.field.validationRules)
   }
-  
+
   const result = validateField(props.modelValue, rules)
   hasError.value = !result.valid
   errorMessage.value = result.message || ''
@@ -113,45 +113,47 @@ function validate() {
 </script>
 
 <style scoped>
-.rate-component {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-md);
-}
+  .rate-component {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-md);
+  }
 
-.rate-component--disabled {
-  opacity: 0.6;
-  pointer-events: none;
-}
+  .rate-component--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
 
-.rate-stars {
-  display: flex;
-  gap: var(--spacing-xs);
-}
+  .rate-stars {
+    display: flex;
+    gap: var(--spacing-xs);
+  }
 
-.rate-star {
-  cursor: pointer;
-  font-size: 24px;
-  color: var(--color-border);
-  transition: transform var(--transition-fast), color var(--transition-fast);
-}
+  .rate-star {
+    cursor: pointer;
+    font-size: 24px;
+    color: var(--color-border);
+    transition:
+      transform var(--transition-fast),
+      color var(--transition-fast);
+  }
 
-.rate-star:hover {
-  transform: scale(1.1);
-}
+  .rate-star:hover {
+    transform: scale(1.1);
+  }
 
-.rate-star--active {
-  color: #f5a623;
-}
+  .rate-star--active {
+    color: #f5a623;
+  }
 
-.rate-star__icon {
-  width: 28px;
-  height: 28px;
-}
+  .rate-star__icon {
+    width: 28px;
+    height: 28px;
+  }
 
-.rate-value {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-regular);
-  font-weight: 500;
-}
+  .rate-value {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-regular);
+    font-weight: 500;
+  }
 </style>

@@ -6,11 +6,11 @@ export default defineConfig({
   plugins: [vue()],
   server: {
     port: 16063,
-    open: true
+    open: true,
   },
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src')
-    }
-  }
+      '@': resolve(__dirname, 'src'),
+    },
+  },
 })

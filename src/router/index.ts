@@ -8,33 +8,33 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
   },
   {
     path: '/designer',
     name: 'designer',
-    component: DesignerView
+    component: DesignerView,
   },
   {
     path: '/designer/:id',
     name: 'designer-edit',
-    component: DesignerView
+    component: DesignerView,
   },
   {
     path: '/fill/:formId',
     name: 'fill',
-    component: FillView
+    component: FillView,
   },
   {
     path: '/submissions/:formId',
     name: 'submissions',
-    component: SubmissionsView
-  }
+    component: SubmissionsView,
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
+  routes,
 })
 
 export default router

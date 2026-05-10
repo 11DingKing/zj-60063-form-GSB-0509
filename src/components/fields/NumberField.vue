@@ -11,7 +11,9 @@
         class="number-input-btn"
         @click="decrease"
         :disabled="field.readonly || disabled"
-      >-</button>
+      >
+        -
+      </button>
       <input
         type="number"
         :value="modelValue"
@@ -29,7 +31,9 @@
         class="number-input-btn"
         @click="increase"
         :disabled="field.readonly || disabled"
-      >+</button>
+      >
+        +
+      </button>
     </div>
   </FieldWrapper>
 </template>
@@ -40,21 +44,21 @@ import type { NumberField as NumberFieldType } from '@/types'
 import { validateField } from '@/utils/helpers'
 import FieldWrapper from './FieldWrapper.vue'
 
-interface Props {
-  field: NumberFieldType
-  modelValue?: number | null
-  disabled?: boolean
-}
+  interface Props {
+    field: NumberFieldType
+    modelValue?: number | null
+    disabled?: boolean
+  }
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: null,
-  disabled: false
+  disabled: false,
 })
 
 const emit = defineEmits<{
-  'update:modelValue': [value: number | null]
-  'change': [value: number | null]
-}>()
+    'update:modelValue': [value: number | null]
+    change: [value: number | null]
+  }>()
 
 const hasError = ref(false)
 const errorMessage = ref('')
@@ -86,23 +90,23 @@ function decrease() {
 
 function validate() {
   const rules: any[] = []
-  
+
   if (props.field.required) {
     rules.push({ type: 'required' })
   }
-  
+
   if (props.field.min !== undefined) {
     rules.push({ type: 'min', value: props.field.min })
   }
-  
+
   if (props.field.max !== undefined) {
     rules.push({ type: 'max', value: props.field.max })
   }
-  
+
   if (props.field.validationRules) {
     rules.push(...props.field.validationRules)
   }
-  
+
   const result = validateField(props.modelValue, rules)
   hasError.value = !result.valid
   errorMessage.value = result.message || ''
@@ -110,51 +114,51 @@ function validate() {
 </script>
 
 <style scoped>
-.number-input-wrapper {
-  display: flex;
-  align-items: center;
-}
+  .number-input-wrapper {
+    display: flex;
+    align-items: center;
+  }
 
-.number-input-btn {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--color-border);
-  background-color: var(--color-background);
-  color: var(--color-text-regular);
-  font-size: var(--font-size-lg);
-  font-weight: 500;
-  transition: all var(--transition-fast);
-  cursor: pointer;
-}
+  .number-input-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-background);
+    color: var(--color-text-regular);
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+  }
 
-.number-input-btn:first-child {
-  border-radius: var(--radius-md) 0 0 var(--radius-md);
-  border-right: none;
-}
+  .number-input-btn:first-child {
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+    border-right: none;
+  }
 
-.number-input-btn:last-child {
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  border-left: none;
-}
+  .number-input-btn:last-child {
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    border-left: none;
+  }
 
-.number-input-btn:hover:not(:disabled) {
-  background-color: var(--color-primary-light);
-  color: var(--color-primary);
-  border-color: var(--color-primary);
-}
+  .number-input-btn:hover:not(:disabled) {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
 
-.number-input-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+  .number-input-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 
-.number-input {
-  border-radius: 0;
-  text-align: center;
-  width: 100px;
-  flex: 1;
-}
+  .number-input {
+    border-radius: 0;
+    text-align: center;
+    width: 100px;
+    flex: 1;
+  }
 </style>
