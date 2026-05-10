@@ -1,4 +1,4 @@
-export type FieldType = 
+export type FieldType =
   | 'input'
   | 'textarea'
   | 'number'
@@ -37,6 +37,7 @@ export interface BaseField {
   type: FieldType
   label: string
   placeholder?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaultValue?: any
   required?: boolean
   readonly?: boolean
@@ -135,7 +136,7 @@ export interface GroupField extends BaseField {
   collapsed?: boolean
 }
 
-export type Field = 
+export type Field =
   | InputField
   | TextareaField
   | NumberField
@@ -175,6 +176,7 @@ export interface FormConfig {
 export interface SubmissionRecord {
   id: string
   formId: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: Record<string, any>
   submittedAt: string
 }

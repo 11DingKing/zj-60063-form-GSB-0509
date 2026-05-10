@@ -19,8 +19,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import type { InputField as InputFieldType } from '@/types'
+import { ref } from 'vue'
+import type { InputField as InputFieldType, ValidationRule } from '@/types'
 import { validateField } from '@/utils/helpers'
 import FieldWrapper from './FieldWrapper.vue'
 
@@ -32,12 +32,12 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: '',
-  disabled: false
+  disabled: false,
 })
 
 const emit = defineEmits<{
   'update:modelValue': [value: string]
-  'change': [value: string]
+  change: [value: string]
 }>()
 
 const hasError = ref(false)
@@ -50,20 +50,20 @@ function handleInput(event: Event) {
 }
 
 function validate() {
-  const rules: any[] = []
-  
+  const rules: ValidationRule[] = []
+
   if (props.field.required) {
     rules.push({ type: 'required' })
   }
-  
+
   if (props.field.maxLength) {
     rules.push({ type: 'maxLength', value: props.field.maxLength })
   }
-  
+
   if (props.field.validationRules) {
     rules.push(...props.field.validationRules)
   }
-  
+
   const result = validateField(props.modelValue, rules)
   hasError.value = !result.valid
   errorMessage.value = result.message || ''
@@ -79,7 +79,9 @@ function validate() {
   font-size: var(--font-size-sm);
   color: var(--color-text-primary);
   background-color: var(--color-background-white);
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
   outline: none;
 }
 

@@ -5,7 +5,10 @@
     :hasError="hasError"
     :errorMessage="errorMessage"
   >
-    <div class="switch-component" :class="{ 'switch-component--disabled': field.readonly || disabled }">
+    <div
+      class="switch-component"
+      :class="{ 'switch-component--disabled': field.readonly || disabled }"
+    >
       <button
         type="button"
         class="switch"
@@ -27,7 +30,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { SwitchField as SwitchFieldType } from '@/types'
+import type { SwitchField as SwitchFieldType, ValidationRule } from '@/types'
 import { validateField } from '@/utils/helpers'
 import FieldWrapper from './FieldWrapper.vue'
 
@@ -39,12 +42,12 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: false,
-  disabled: false
+  disabled: false,
 })
 
 const emit = defineEmits<{
   'update:modelValue': [value: boolean]
-  'change': [value: boolean]
+  change: [value: boolean]
 }>()
 
 const hasError = ref(false)
@@ -52,7 +55,7 @@ const errorMessage = ref('')
 
 function toggle() {
   if (props.field.readonly || props.disabled) return
-  
+
   const newValue = !props.modelValue
   emit('update:modelValue', newValue)
   emit('change', newValue)
@@ -60,16 +63,16 @@ function toggle() {
 }
 
 function validate() {
-  const rules: any[] = []
-  
+  const rules: ValidationRule[] = []
+
   if (props.field.required) {
     rules.push({ type: 'required' })
   }
-  
+
   if (props.field.validationRules) {
     rules.push(...props.field.validationRules)
   }
-  
+
   const result = validateField(props.modelValue, rules)
   hasError.value = !result.valid
   errorMessage.value = result.message || ''

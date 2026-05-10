@@ -8,19 +8,23 @@
           <div class="home-view__features">
             <div class="home-view__feature">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                <path
+                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                />
               </svg>
               <span>拖拽设计</span>
             </div>
             <div class="home-view__feature">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
               </svg>
               <span>一键发布</span>
             </div>
             <div class="home-view__feature">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                <path
+                  d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                />
               </svg>
               <span>数据管理</span>
             </div>
@@ -28,13 +32,13 @@
         </div>
         <button class="home-view__create-btn" @click="createNewForm">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 5v14M5 12h14"/>
+            <path d="M12 5v14M5 12h14" />
           </svg>
           新建表单
         </button>
       </div>
     </header>
-    
+
     <main class="home-view__main">
       <div class="home-view__section">
         <div class="home-view__section-header">
@@ -43,76 +47,132 @@
             <span class="home-view__section-count">{{ formStore.forms.length }} 个表单</span>
           </div>
         </div>
-        
+
         <div v-if="formStore.forms.length === 0" class="home-view__empty">
           <div class="home-view__empty-illustration">
             <svg viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="40" y="20" width="120" height="110" rx="8" stroke="currentColor" stroke-width="2" fill="white"/>
-              <rect x="50" y="35" width="100" height="12" rx="4" fill="currentColor" opacity="0.3"/>
-              <rect x="50" y="55" width="70" height="8" rx="2" fill="currentColor" opacity="0.2"/>
-              <rect x="50" y="70" width="100" height="8" rx="2" fill="currentColor" opacity="0.15"/>
-              <rect x="50" y="85" width="80" height="8" rx="2" fill="currentColor" opacity="0.15"/>
-              <rect x="50" y="100" width="100" height="8" rx="2" fill="currentColor" opacity="0.15"/>
-              <circle cx="100" cy="75" r="30" fill="currentColor" opacity="0.05"/>
-              <path d="M85 75h15m7.5 0h-7.5v-7.5M100 75v7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+              <rect
+                x="40"
+                y="20"
+                width="120"
+                height="110"
+                rx="8"
+                stroke="currentColor"
+                stroke-width="2"
+                fill="white"
+              />
+              <rect
+                x="50"
+                y="35"
+                width="100"
+                height="12"
+                rx="4"
+                fill="currentColor"
+                opacity="0.3"
+              />
+              <rect x="50" y="55" width="70" height="8" rx="2" fill="currentColor" opacity="0.2" />
+              <rect
+                x="50"
+                y="70"
+                width="100"
+                height="8"
+                rx="2"
+                fill="currentColor"
+                opacity="0.15"
+              />
+              <rect x="50" y="85" width="80" height="8" rx="2" fill="currentColor" opacity="0.15" />
+              <rect
+                x="50"
+                y="100"
+                width="100"
+                height="8"
+                rx="2"
+                fill="currentColor"
+                opacity="0.15"
+              />
+              <circle cx="100" cy="75" r="30" fill="currentColor" opacity="0.05" />
+              <path
+                d="M85 75h15m7.5 0h-7.5v-7.5M100 75v7.5"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                opacity="0.5"
+              />
             </svg>
           </div>
           <h3 class="home-view__empty-title">还没有创建任何表单</h3>
           <p class="home-view__empty-text">点击下方按钮或选择模板开始创建</p>
           <button class="home-view__empty-btn" @click="createNewForm">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 5v14M5 12h14"/>
+              <path d="M12 5v14M5 12h14" />
             </svg>
             创建第一个表单
           </button>
         </div>
-        
+
         <div v-else class="home-view__grid">
-          <div
-            v-for="form in formStore.forms"
-            :key="form.id"
-            class="form-card"
-          >
+          <div v-for="form in formStore.forms" :key="form.id" class="form-card">
             <div class="form-card__top">
-              <div class="form-card__icon" :class="{ 'form-card__icon--published': form.isPublished }">
-                <svg v-if="form.isPublished" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+              <div
+                class="form-card__icon"
+                :class="{ 'form-card__icon--published': form.isPublished }"
+              >
+                <svg
+                  v-if="form.isPublished"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
                 <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                  <path
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
                 </svg>
               </div>
-              <div class="form-card__status-badge" :class="{ 'form-card__status-badge--published': form.isPublished }">
+              <div
+                class="form-card__status-badge"
+                :class="{ 'form-card__status-badge--published': form.isPublished }"
+              >
                 <span v-if="form.isPublished">已发布</span>
                 <span v-else>草稿</span>
               </div>
             </div>
-            
+
             <div class="form-card__body">
               <h3 class="form-card__title">{{ form.title || '未命名表单' }}</h3>
               <div class="form-card__meta">
                 <div class="form-card__meta-item">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    <path
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
                   </svg>
                   <span>{{ form.fields.length }} 个字段</span>
                 </div>
                 <div class="form-card__meta-item">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                    <line x1="16" y1="2" x2="16" y2="6"/>
-                    <line x1="8" y1="2" x2="8" y2="6"/>
-                    <line x1="3" y1="10" x2="21" y2="10"/>
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
                   </svg>
                   <span>{{ formatDate(form.updatedAt) }}</span>
                 </div>
               </div>
             </div>
-            
+
             <div class="form-card__actions">
-              <button class="form-card__action-btn form-card__action-btn--primary" @click="editForm(form.id)">
+              <button
+                class="form-card__action-btn form-card__action-btn--primary"
+                @click="editForm(form.id)"
+              >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                  <path
+                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                  />
                 </svg>
                 <span>编辑</span>
               </button>
@@ -122,7 +182,9 @@
                 @click="viewSubmissions(form.id)"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                  <path
+                    d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
                 </svg>
                 <span>数据</span>
               </button>
@@ -131,14 +193,16 @@
                 @click="deleteForm(form.id)"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                  <path
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                  />
                 </svg>
               </button>
             </div>
           </div>
         </div>
       </div>
-      
+
       <div class="home-view__section">
         <div class="home-view__section-header">
           <div class="home-view__section-title-group">
@@ -146,7 +210,7 @@
             <span class="home-view__section-hint">选择模板快速开始</span>
           </div>
         </div>
-        
+
         <div class="home-view__grid home-view__grid--templates">
           <div
             v-for="template in templates"
@@ -166,7 +230,7 @@
             </div>
             <div class="template-card__arrow">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
+                <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </div>
           </div>
@@ -188,11 +252,14 @@ const formStore = useFormStore()
 const templateGradients: Record<string, string> = {
   'leave-request': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
   'satisfaction-survey': 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-  'event-registration': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
+  'event-registration': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
 }
 
 function getTemplateGradient(templateId: string): string {
-  return templateGradients[templateId] || 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%)'
+  return (
+    templateGradients[templateId] ||
+    'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%)'
+  )
 }
 
 function formatDate(dateStr: string): string {
@@ -201,7 +268,7 @@ function formatDate(dateStr: string): string {
   const now = new Date()
   const diff = now.getTime() - date.getTime()
   const days = Math.floor(diff / (1000 * 60 * 60 * 24))
-  
+
   if (days === 0) {
     const hours = Math.floor(diff / (1000 * 60 * 60))
     if (hours === 0) {
@@ -263,7 +330,7 @@ function deleteForm(formId: string) {
   right: -10%;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
   border-radius: 50%;
 }
 
@@ -274,7 +341,7 @@ function deleteForm(formId: string) {
   left: -5%;
   width: 300px;
   height: 300px;
-  background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
   border-radius: 50%;
 }
 
@@ -741,16 +808,16 @@ function deleteForm(formId: string) {
     align-items: flex-start;
     gap: var(--spacing-xl);
   }
-  
+
   .home-view__features {
     flex-wrap: wrap;
     gap: var(--spacing-md);
   }
-  
+
   .home-view__title {
     font-size: var(--font-size-2xl);
   }
-  
+
   .home-view__subtitle {
     font-size: var(--font-size-md);
   }
