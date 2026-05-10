@@ -29,7 +29,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { RadioField as RadioFieldType } from '@/types'
+import type { RadioField as RadioFieldType, ValidationRule } from '@/types'
 import { validateField } from '@/utils/helpers'
 import FieldWrapper from './FieldWrapper.vue'
 
@@ -41,12 +41,12 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: null,
-  disabled: false
+  disabled: false,
 })
 
 const emit = defineEmits<{
   'update:modelValue': [value: string | number | null]
-  'change': [value: string | number | null]
+  change: [value: string | number | null]
 }>()
 
 const hasError = ref(false)
@@ -59,16 +59,16 @@ function handleChange(value: string | number) {
 }
 
 function validate() {
-  const rules: any[] = []
-  
+  const rules: ValidationRule[] = []
+
   if (props.field.required) {
     rules.push({ type: 'required' })
   }
-  
+
   if (props.field.validationRules) {
     rules.push(...props.field.validationRules)
   }
-  
+
   const result = validateField(props.modelValue, rules)
   hasError.value = !result.valid
   errorMessage.value = result.message || ''

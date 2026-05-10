@@ -14,7 +14,7 @@ export const templates: FormTemplate[] = [
       submitMessage: '请假申请已提交，请等待审批',
       steps: [
         { id: generateId(), title: '基本信息' },
-        { id: generateId(), title: '请假详情' }
+        { id: generateId(), title: '请假详情' },
       ],
       fields: [
         {
@@ -23,7 +23,7 @@ export const templates: FormTemplate[] = [
           label: '姓名',
           placeholder: '请输入姓名',
           required: true,
-          step: 0
+          step: 0,
         },
         {
           id: generateId(),
@@ -31,7 +31,7 @@ export const templates: FormTemplate[] = [
           label: '工号',
           placeholder: '请输入工号',
           required: true,
-          step: 0
+          step: 0,
         },
         {
           id: generateId(),
@@ -45,8 +45,8 @@ export const templates: FormTemplate[] = [
             { label: '产品部', value: 'product' },
             { label: '市场部', value: 'market' },
             { label: '人事部', value: 'hr' },
-            { label: '财务部', value: 'finance' }
-          ]
+            { label: '财务部', value: 'finance' },
+          ],
         },
         {
           id: generateId(),
@@ -59,22 +59,22 @@ export const templates: FormTemplate[] = [
             { label: '病假', value: 'sick' },
             { label: '事假', value: 'personal' },
             { label: '婚假', value: 'marriage' },
-            { label: '产假', value: 'maternity' }
-          ]
+            { label: '产假', value: 'maternity' },
+          ],
         },
         {
           id: generateId(),
           type: 'date',
           label: '开始日期',
           required: true,
-          step: 1
+          step: 1,
         },
         {
           id: generateId(),
           type: 'date',
           label: '结束日期',
           required: true,
-          step: 1
+          step: 1,
         },
         {
           id: generateId(),
@@ -83,7 +83,7 @@ export const templates: FormTemplate[] = [
           placeholder: '请输入天数',
           required: true,
           min: 0.5,
-          step: 1
+          step: 1,
         },
         {
           id: generateId(),
@@ -92,7 +92,7 @@ export const templates: FormTemplate[] = [
           placeholder: '请详细说明请假原因',
           required: true,
           rows: 4,
-          step: 1
+          step: 1,
         },
         {
           id: generateId(),
@@ -100,10 +100,10 @@ export const templates: FormTemplate[] = [
           label: '附件上传',
           placeholder: '如有需要请上传相关证明',
           accept: 'image/*,.pdf,.doc,.docx',
-          step: 1
-        }
-      ]
-    }
+          step: 1,
+        },
+      ],
+    },
   },
   {
     id: 'satisfaction-survey',
@@ -118,7 +118,7 @@ export const templates: FormTemplate[] = [
       steps: [
         { id: generateId(), title: '基本信息' },
         { id: generateId(), title: '服务评价' },
-        { id: generateId(), title: '建议反馈' }
+        { id: generateId(), title: '建议反馈' },
       ],
       fields: [
         {
@@ -127,7 +127,7 @@ export const templates: FormTemplate[] = [
           label: '您的姓名',
           placeholder: '选填，可匿名填写',
           required: false,
-          step: 0
+          step: 0,
         },
         {
           id: generateId(),
@@ -137,8 +137,8 @@ export const templates: FormTemplate[] = [
           required: false,
           step: 0,
           validationRules: [
-            { type: 'regex', value: '^1[3-9]\\d{9}$', message: '请输入正确的手机号' }
-          ]
+            { type: 'regex', value: '^1[3-9]\\d{9}$', message: '请输入正确的手机号' },
+          ],
         },
         {
           id: generateId(),
@@ -146,7 +146,7 @@ export const templates: FormTemplate[] = [
           label: '整体满意度',
           required: true,
           step: 1,
-          max: 5
+          max: 5,
         },
         {
           id: generateId(),
@@ -159,8 +159,8 @@ export const templates: FormTemplate[] = [
             { label: '朋友推荐', value: 'friend' },
             { label: '社交媒体', value: 'social' },
             { label: '线下广告', value: 'offline' },
-            { label: '其他', value: 'other' }
-          ]
+            { label: '其他', value: 'other' },
+          ],
         },
         {
           id: generateId(),
@@ -173,8 +173,8 @@ export const templates: FormTemplate[] = [
             { label: '服务态度', value: 'service' },
             { label: '价格合理', value: 'price' },
             { label: '响应速度', value: 'speed' },
-            { label: '售后服务', value: 'aftersale' }
-          ]
+            { label: '售后服务', value: 'aftersale' },
+          ],
         },
         {
           id: generateId(),
@@ -182,7 +182,7 @@ export const templates: FormTemplate[] = [
           label: '服务人员专业度评价',
           required: true,
           step: 2,
-          max: 5
+          max: 5,
         },
         {
           id: generateId(),
@@ -191,17 +191,17 @@ export const templates: FormTemplate[] = [
           placeholder: '请告诉我们您的想法，帮助我们做得更好',
           required: false,
           rows: 5,
-          step: 2
+          step: 2,
         },
         {
           id: generateId(),
           type: 'switch',
           label: '是否愿意接受后续回访',
           defaultValue: false,
-          step: 2
-        }
-      ]
-    }
+          step: 2,
+        },
+      ],
+    },
   },
   {
     id: 'activity-registration',
@@ -213,9 +213,7 @@ export const templates: FormTemplate[] = [
       submitButtonText: '确认报名',
       allowDraft: true,
       submitMessage: '报名成功！我们将尽快与您联系确认',
-      steps: [
-        { id: generateId(), title: '报名信息' }
-      ],
+      steps: [{ id: generateId(), title: '报名信息' }],
       fields: [
         {
           id: generateId(),
@@ -223,7 +221,7 @@ export const templates: FormTemplate[] = [
           label: '姓名',
           placeholder: '请输入您的姓名',
           required: true,
-          step: 0
+          step: 0,
         },
         {
           id: generateId(),
@@ -233,8 +231,8 @@ export const templates: FormTemplate[] = [
           required: true,
           step: 0,
           validationRules: [
-            { type: 'regex', value: '^1[3-9]\\d{9}$', message: '请输入正确的手机号' }
-          ]
+            { type: 'regex', value: '^1[3-9]\\d{9}$', message: '请输入正确的手机号' },
+          ],
         },
         {
           id: generateId(),
@@ -245,8 +243,8 @@ export const templates: FormTemplate[] = [
           step: 0,
           options: [
             { label: '男', value: 'male' },
-            { label: '女', value: 'female' }
-          ]
+            { label: '女', value: 'female' },
+          ],
         },
         {
           id: generateId(),
@@ -256,7 +254,7 @@ export const templates: FormTemplate[] = [
           required: true,
           min: 1,
           max: 120,
-          step: 0
+          step: 0,
         },
         {
           id: generateId(),
@@ -266,21 +264,21 @@ export const templates: FormTemplate[] = [
           required: true,
           min: 1,
           defaultValue: 1,
-          step: 0
+          step: 0,
         },
         {
           id: generateId(),
           type: 'date',
           label: '期望参加日期',
           required: true,
-          step: 0
+          step: 0,
         },
         {
           id: generateId(),
           type: 'time',
           label: '期望时间',
           required: true,
-          step: 0
+          step: 0,
         },
         {
           id: generateId(),
@@ -297,8 +295,8 @@ export const templates: FormTemplate[] = [
                 { label: '东城区', value: 'dongcheng' },
                 { label: '西城区', value: 'xicheng' },
                 { label: '朝阳区', value: 'chaoyang' },
-                { label: '海淀区', value: 'haidian' }
-              ]
+                { label: '海淀区', value: 'haidian' },
+              ],
             },
             {
               label: '上海市',
@@ -307,8 +305,8 @@ export const templates: FormTemplate[] = [
                 { label: '黄浦区', value: 'huangpu' },
                 { label: '徐汇区', value: 'xuhui' },
                 { label: '静安区', value: 'jingan' },
-                { label: '浦东新区', value: 'pudong' }
-              ]
+                { label: '浦东新区', value: 'pudong' },
+              ],
             },
             {
               label: '广东省',
@@ -320,8 +318,8 @@ export const templates: FormTemplate[] = [
                   children: [
                     { label: '天河区', value: 'tianhe' },
                     { label: '越秀区', value: 'yuexiu' },
-                    { label: '海珠区', value: 'haizhu' }
-                  ]
+                    { label: '海珠区', value: 'haizhu' },
+                  ],
                 },
                 {
                   label: '深圳市',
@@ -329,12 +327,12 @@ export const templates: FormTemplate[] = [
                   children: [
                     { label: '南山区', value: 'nanshan' },
                     { label: '福田区', value: 'futian' },
-                    { label: '宝安区', value: 'baoan' }
-                  ]
-                }
-              ]
-            }
-          ]
+                    { label: '宝安区', value: 'baoan' },
+                  ],
+                },
+              ],
+            },
+          ],
         },
         {
           id: generateId(),
@@ -343,7 +341,7 @@ export const templates: FormTemplate[] = [
           placeholder: '如有特殊需求请在此说明',
           required: false,
           rows: 3,
-          step: 0
+          step: 0,
         },
         {
           id: generateId(),
@@ -353,9 +351,9 @@ export const templates: FormTemplate[] = [
           required: true,
           step: 0,
           width: 400,
-          height: 150
-        }
-      ]
-    }
-  }
+          height: 150,
+        },
+      ],
+    },
+  },
 ]

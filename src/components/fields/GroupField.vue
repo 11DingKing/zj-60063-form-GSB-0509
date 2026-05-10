@@ -7,10 +7,10 @@
         viewBox="0 0 24 24"
         :style="{ transform: collapsed ? 'rotate(-90deg)' : 'rotate(0)' }"
       >
-        <polyline points="6 9 12 15 18 9"/>
+        <polyline points="6 9 12 15 18 9" />
       </svg>
     </legend>
-    
+
     <div class="group-field__content">
       <slot></slot>
     </div>
@@ -27,7 +27,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  modelValue: false
+  modelValue: false,
 })
 
 const emit = defineEmits<{
@@ -41,13 +41,19 @@ function toggleCollapse() {
   emit('update:modelValue', collapsed.value)
 }
 
-watch(() => props.field.collapsed, (newValue) => {
-  collapsed.value = newValue ?? false
-})
+watch(
+  () => props.field.collapsed,
+  (newValue) => {
+    collapsed.value = newValue ?? false
+  }
+)
 
-watch(() => props.modelValue, (newValue) => {
-  collapsed.value = newValue
-})
+watch(
+  () => props.modelValue,
+  (newValue) => {
+    collapsed.value = newValue
+  }
+)
 </script>
 
 <style scoped>

@@ -11,7 +11,9 @@
         class="number-input-btn"
         @click="decrease"
         :disabled="field.readonly || disabled"
-      >-</button>
+      >
+        -
+      </button>
       <input
         type="number"
         :value="modelValue"
@@ -29,14 +31,16 @@
         class="number-input-btn"
         @click="increase"
         :disabled="field.readonly || disabled"
-      >+</button>
+      >
+        +
+      </button>
     </div>
   </FieldWrapper>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import type { NumberField as NumberFieldType } from '@/types'
+import { ref } from 'vue'
+import type { NumberField as NumberFieldType, ValidationRule } from '@/types'
 import { validateField } from '@/utils/helpers'
 import FieldWrapper from './FieldWrapper.vue'
 
@@ -48,12 +52,12 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: null,
-  disabled: false
+  disabled: false,
 })
 
 const emit = defineEmits<{
   'update:modelValue': [value: number | null]
-  'change': [value: number | null]
+  change: [value: number | null]
 }>()
 
 const hasError = ref(false)
@@ -85,24 +89,24 @@ function decrease() {
 }
 
 function validate() {
-  const rules: any[] = []
-  
+  const rules: ValidationRule[] = []
+
   if (props.field.required) {
     rules.push({ type: 'required' })
   }
-  
+
   if (props.field.min !== undefined) {
     rules.push({ type: 'min', value: props.field.min })
   }
-  
+
   if (props.field.max !== undefined) {
     rules.push({ type: 'max', value: props.field.max })
   }
-  
+
   if (props.field.validationRules) {
     rules.push(...props.field.validationRules)
   }
-  
+
   const result = validateField(props.modelValue, rules)
   hasError.value = !result.valid
   errorMessage.value = result.message || ''

@@ -3,11 +3,11 @@
     <div class="property-panel__header">
       <h3 class="property-panel__title">属性配置</h3>
     </div>
-    
+
     <div class="property-panel__content" v-if="selectedField">
       <div class="property-section">
         <h4 class="property-section__title">基本属性</h4>
-        
+
         <div class="property-item">
           <label class="property-item__label">字段标签</label>
           <input
@@ -17,7 +17,7 @@
             class="property-item__input"
           />
         </div>
-        
+
         <div class="property-item" v-if="supportsPlaceholder">
           <label class="property-item__label">占位符</label>
           <input
@@ -27,7 +27,7 @@
             class="property-item__input"
           />
         </div>
-        
+
         <div class="property-item" v-if="supportsDefaultValue">
           <label class="property-item__label">默认值</label>
           <input
@@ -37,7 +37,7 @@
             class="property-item__input"
           />
         </div>
-        
+
         <div class="property-item" v-if="selectedField.type === 'textarea'">
           <label class="property-item__label">行数</label>
           <input
@@ -48,8 +48,11 @@
             min="1"
           />
         </div>
-        
-        <div class="property-item" v-if="selectedField.type === 'textarea' || selectedField.type === 'input'">
+
+        <div
+          class="property-item"
+          v-if="selectedField.type === 'textarea' || selectedField.type === 'input'"
+        >
           <label class="property-item__label">最大长度</label>
           <input
             type="number"
@@ -59,7 +62,7 @@
             min="0"
           />
         </div>
-        
+
         <div class="property-item" v-if="selectedField.type === 'number'">
           <label class="property-item__label">最小值</label>
           <input
@@ -69,7 +72,7 @@
             class="property-item__input"
           />
         </div>
-        
+
         <div class="property-item" v-if="selectedField.type === 'number'">
           <label class="property-item__label">最大值</label>
           <input
@@ -79,7 +82,7 @@
             class="property-item__input"
           />
         </div>
-        
+
         <div class="property-item" v-if="selectedField.type === 'number'">
           <label class="property-item__label">步长</label>
           <input
@@ -90,7 +93,7 @@
             step="0.01"
           />
         </div>
-        
+
         <div class="property-item" v-if="selectedField.type === 'rate'">
           <label class="property-item__label">最大分值</label>
           <input
@@ -101,7 +104,7 @@
             min="1"
           />
         </div>
-        
+
         <div class="property-item" v-if="selectedField.type === 'file'">
           <label class="property-item__label">允许格式</label>
           <input
@@ -112,7 +115,7 @@
             placeholder="如: image/*,.pdf"
           />
         </div>
-        
+
         <div class="property-item" v-if="selectedField.type === 'divider'">
           <label class="property-item__label">分割线文字</label>
           <input
@@ -122,7 +125,7 @@
             class="property-item__input"
           />
         </div>
-        
+
         <div class="property-item" v-if="selectedField.type === 'switch'">
           <label class="property-item__label">开启文字</label>
           <input
@@ -132,7 +135,7 @@
             class="property-item__input"
           />
         </div>
-        
+
         <div class="property-item" v-if="selectedField.type === 'switch'">
           <label class="property-item__label">关闭文字</label>
           <input
@@ -143,10 +146,10 @@
           />
         </div>
       </div>
-      
+
       <div class="property-section">
         <h4 class="property-section__title">状态设置</h4>
-        
+
         <div class="property-item property-item--checkbox">
           <label class="property-item__checkbox-label">
             <input
@@ -157,7 +160,7 @@
             <span>必填字段</span>
           </label>
         </div>
-        
+
         <div class="property-item property-item--checkbox">
           <label class="property-item__checkbox-label">
             <input
@@ -168,7 +171,7 @@
             <span>只读</span>
           </label>
         </div>
-        
+
         <div class="property-item" v-if="currentForm && currentForm.steps.length > 1">
           <label class="property-item__label">所属步骤</label>
           <select
@@ -176,26 +179,18 @@
             @change="updateStep($event)"
             class="property-item__select"
           >
-            <option
-              v-for="(step, index) in currentForm.steps"
-              :key="step.id"
-              :value="index"
-            >
+            <option v-for="(step, index) in currentForm.steps" :key="step.id" :value="index">
               {{ step.title }}
             </option>
           </select>
         </div>
       </div>
-      
+
       <div class="property-section" v-if="supportsOptions">
         <h4 class="property-section__title">选项设置</h4>
-        
+
         <div class="property-options">
-          <div
-            v-for="(option, index) in fieldOptions"
-            :key="index"
-            class="property-option"
-          >
+          <div v-for="(option, index) in fieldOptions" :key="index" class="property-option">
             <input
               type="text"
               :value="option.label"
@@ -217,29 +212,25 @@
               v-if="fieldOptions.length > 1"
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="18" y1="6" x2="6" y2="18"/>
-                <line x1="6" y1="6" x2="18" y2="18"/>
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
             </button>
           </div>
         </div>
-        
-        <button
-          type="button"
-          class="property-options__add"
-          @click="addOption"
-        >
+
+        <button type="button" class="property-options__add" @click="addOption">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="12" y1="5" x2="12" y2="19"/>
-            <line x1="5" y1="12" x2="19" y2="12"/>
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
           </svg>
           <span>添加选项</span>
         </button>
       </div>
-      
+
       <div class="property-section">
         <h4 class="property-section__title">校验规则</h4>
-        
+
         <div class="property-validation-rules">
           <div
             v-for="(rule, index) in validationRules"
@@ -270,29 +261,25 @@
               @click="removeRule(index)"
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="18" y1="6" x2="6" y2="18"/>
-                <line x1="6" y1="6" x2="18" y2="18"/>
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
             </button>
           </div>
         </div>
-        
-        <button
-          type="button"
-          class="property-validation-rules__add"
-          @click="addRule"
-        >
+
+        <button type="button" class="property-validation-rules__add" @click="addRule">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="12" y1="5" x2="12" y2="19"/>
-            <line x1="5" y1="12" x2="19" y2="12"/>
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
           </svg>
           <span>添加规则</span>
         </button>
       </div>
-      
+
       <div class="property-section" v-if="allFields.length > 1">
         <h4 class="property-section__title">显示条件</h4>
-        
+
         <div class="property-display-condition">
           <div class="property-item">
             <label class="property-item__label">触发字段</label>
@@ -302,16 +289,12 @@
               class="property-item__select"
             >
               <option value="">无</option>
-              <option
-                v-for="field in otherFields"
-                :key="field.id"
-                :value="field.id"
-              >
+              <option v-for="field in otherFields" :key="field.id" :value="field.id">
                 {{ field.label }}
               </option>
             </select>
           </div>
-          
+
           <div class="property-item" v-if="selectedField.displayCondition?.triggerFieldId">
             <label class="property-item__label">条件</label>
             <select
@@ -326,7 +309,7 @@
               <option value="lessThan">小于</option>
             </select>
           </div>
-          
+
           <div class="property-item" v-if="selectedField.displayCondition?.triggerFieldId">
             <label class="property-item__label">条件值</label>
             <input
@@ -337,7 +320,7 @@
               placeholder="输入条件值"
             />
           </div>
-          
+
           <button
             type="button"
             class="property-display-condition__clear"
@@ -349,12 +332,18 @@
         </div>
       </div>
     </div>
-    
+
     <div class="property-panel__empty" v-else>
-      <svg class="property-panel__empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="10"/>
-        <line x1="12" y1="16" x2="12" y2="12"/>
-        <line x1="12" y1="8" x2="12.01" y2="8"/>
+      <svg
+        class="property-panel__empty-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <line x1="12" y1="16" x2="12" y2="12" />
+        <line x1="12" y1="8" x2="12.01" y2="8" />
       </svg>
       <p class="property-panel__empty-text">请选择一个字段来配置属性</p>
     </div>
@@ -364,7 +353,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useFormStore } from '@/store'
-import type { Field, ValidationRule, DisplayCondition, FormConfig } from '@/types'
+import type { Field, ValidationRule, DisplayCondition, GroupField } from '@/types'
 import { storeToRefs } from 'pinia'
 
 const formStore = useFormStore()
@@ -375,7 +364,7 @@ function getAllFields(fields: Field[]): Field[] {
   for (const field of fields) {
     result.push(field)
     if (field.type === 'group') {
-      result = result.concat(getAllFields((field as any).children || []))
+      result = result.concat(getAllFields((field as GroupField).children || []))
     }
   }
   return result
@@ -386,11 +375,13 @@ const allFields = computed(() => {
 })
 
 const otherFields = computed(() => {
-  return allFields.value.filter(f => f.id !== selectedFieldId.value)
+  return allFields.value.filter((f) => f.id !== selectedFieldId.value)
 })
 
 const supportsPlaceholder = computed(() => {
-  return ['input', 'textarea', 'number', 'select', 'cascader'].includes(selectedField.value?.type || '')
+  return ['input', 'textarea', 'number', 'select', 'cascader'].includes(
+    selectedField.value?.type || ''
+  )
 })
 
 const supportsDefaultValue = computed(() => {
@@ -406,6 +397,7 @@ const fieldOptions = computed({
     const field = selectedField.value
     if (!field) return []
     if (field.type === 'radio' || field.type === 'checkbox' || field.type === 'select') {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return (field as any).options || []
     }
     return []
@@ -416,7 +408,7 @@ const fieldOptions = computed({
     if (field.type === 'radio' || field.type === 'checkbox' || field.type === 'select') {
       formStore.updateField(field.id, { options: value } as Partial<Field>)
     }
-  }
+  },
 })
 
 const validationRules = computed({
@@ -427,27 +419,29 @@ const validationRules = computed({
     const field = selectedField.value
     if (!field) return
     formStore.updateField(field.id, { validationRules: value })
-  }
+  },
 })
 
 function updateField(key: string, event: Event, isNumber: boolean = false) {
   const field = selectedField.value
   if (!field) return
-  
+
   const target = event.target as HTMLInputElement
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let value: any = target.value
-  
+
   if (isNumber) {
     value = value === '' ? undefined : Number(value)
   }
-  
+
   formStore.updateField(field.id, { [key]: value } as Partial<Field>)
 }
 
 function toggleField(key: string) {
   const field = selectedField.value
   if (!field) return
-  
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const currentValue = (field as any)[key] || false
   formStore.updateField(field.id, { [key]: !currentValue } as Partial<Field>)
 }
@@ -455,7 +449,7 @@ function toggleField(key: string) {
 function updateStep(event: Event) {
   const field = selectedField.value
   if (!field) return
-  
+
   const target = event.target as HTMLSelectElement
   const step = Number(target.value)
   formStore.updateField(field.id, { step })
@@ -530,20 +524,24 @@ function updateRuleValue(index: number, event: Event) {
 function updateDisplayCondition(key: keyof DisplayCondition, event: Event) {
   const field = selectedField.value
   if (!field) return
-  
+
   const target = event.target as HTMLInputElement | HTMLSelectElement
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let value: any = target.value
-  
-  if (key === 'conditionValue' && ['greaterThan', 'lessThan'].includes((field.displayCondition?.operator || 'equals'))) {
+
+  if (
+    key === 'conditionValue' &&
+    ['greaterThan', 'lessThan'].includes(field.displayCondition?.operator || 'equals')
+  ) {
     value = Number(value)
   }
-  
+
   const currentCondition = field.displayCondition || {}
   const newCondition: DisplayCondition = {
     ...currentCondition,
-    [key]: value
+    [key]: value,
   }
-  
+
   formStore.updateField(field.id, { displayCondition: newCondition })
 }
 

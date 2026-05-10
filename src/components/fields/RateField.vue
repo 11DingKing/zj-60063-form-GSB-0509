@@ -13,7 +13,7 @@
           class="rate-star"
           :class="{
             'rate-star--active': i <= currentValue,
-            'rate-star--half': field.allowHalf && i - 0.5 === currentValue
+            'rate-star--half': field.allowHalf && i - 0.5 === currentValue,
           }"
           @click="handleClick(i)"
           @mousemove="handleMouseMove($event, i)"
@@ -35,8 +35,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
-import type { RateField as RateFieldType } from '@/types'
+import { ref, computed } from 'vue'
+import type { RateField as RateFieldType, ValidationRule } from '@/types'
 import { validateField } from '@/utils/helpers'
 import FieldWrapper from './FieldWrapper.vue'
 
@@ -48,12 +48,12 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: null,
-  disabled: false
+  disabled: false,
 })
 
 const emit = defineEmits<{
   'update:modelValue': [value: number | null]
-  'change': [value: number | null]
+  change: [value: number | null]
 }>()
 
 const hasError = ref(false)
@@ -72,7 +72,7 @@ const currentValue = computed(() => {
 
 function handleClick(index: number) {
   if (props.field.readonly || props.disabled) return
-  
+
   const value = index
   emit('update:modelValue', value)
   emit('change', value)
@@ -81,7 +81,7 @@ function handleClick(index: number) {
 
 function handleMouseMove(event: MouseEvent, index: number) {
   if (props.field.readonly || props.disabled) return
-  
+
   if (props.field.allowHalf) {
     const rect = (event.target as HTMLElement).getBoundingClientRect()
     const isHalf = event.clientX - rect.left < rect.width / 2
@@ -96,16 +96,16 @@ function handleMouseLeave() {
 }
 
 function validate() {
-  const rules: any[] = []
-  
+  const rules: ValidationRule[] = []
+
   if (props.field.required) {
     rules.push({ type: 'required' })
   }
-  
+
   if (props.field.validationRules) {
     rules.push(...props.field.validationRules)
   }
-  
+
   const result = validateField(props.modelValue, rules)
   hasError.value = !result.valid
   errorMessage.value = result.message || ''
@@ -133,7 +133,9 @@ function validate() {
   cursor: pointer;
   font-size: 24px;
   color: var(--color-border);
-  transition: transform var(--transition-fast), color var(--transition-fast);
+  transition:
+    transform var(--transition-fast),
+    color var(--transition-fast);
 }
 
 .rate-star:hover {

@@ -5,34 +5,39 @@
     :hasError="hasError"
     :errorMessage="errorMessage"
   >
-    <div class="cascader-component" :class="{ 'cascader-component--disabled': field.readonly || disabled }">
+    <div
+      class="cascader-component"
+      :class="{ 'cascader-component--disabled': field.readonly || disabled }"
+    >
       <div
         class="cascader-trigger"
         :class="{ 'cascader-trigger--open': isOpen }"
         @click="toggleDropdown"
       >
-        <span class="cascader-trigger__text" :class="{ 'cascader-trigger__text--placeholder': !displayText }">
-          {{ displayText || (field.placeholder || '请选择') }}
+        <span
+          class="cascader-trigger__text"
+          :class="{ 'cascader-trigger__text--placeholder': !displayText }"
+        >
+          {{ displayText || field.placeholder || '请选择' }}
         </span>
         <svg class="cascader-trigger__arrow" viewBox="0 0 24 24">
-          <polyline points="6 9 12 15 18 9" :style="{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0)' }"/>
+          <polyline
+            points="6 9 12 15 18 9"
+            :style="{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0)' }"
+          />
         </svg>
       </div>
-      
+
       <div v-if="isOpen" class="cascader-dropdown" ref="dropdownRef">
         <div class="cascader-panels">
-          <div
-            v-for="(panel, panelIndex) in panels"
-            :key="panelIndex"
-            class="cascader-panel"
-          >
+          <div v-for="(panel, panelIndex) in panels" :key="panelIndex" class="cascader-panel">
             <div
               v-for="option in panel"
               :key="option.value"
               class="cascader-option"
               :class="{
                 'cascader-option--selected': isSelected(option, panelIndex),
-                'cascader-option--expanded': isExpanded(option, panelIndex)
+                'cascader-option--expanded': isExpanded(option, panelIndex),
               }"
               @click="selectOption(option, panelIndex)"
             >
@@ -42,7 +47,7 @@
                 class="cascader-option__arrow"
                 viewBox="0 0 24 24"
               >
-                <polyline points="9 18 15 12 9 6"/>
+                <polyline points="9 18 15 12 9 6" />
               </svg>
             </div>
           </div>
@@ -54,7 +59,7 @@
 
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
-import type { CascaderField as CascaderFieldType, CascaderOption } from '@/types'
+import type { CascaderField as CascaderFieldType, CascaderOption, ValidationRule } from '@/types'
 import { validateField } from '@/utils/helpers'
 import FieldWrapper from './FieldWrapper.vue'
 
@@ -66,12 +71,12 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: () => [],
-  disabled: false
+  disabled: false,
 })
 
 const emit = defineEmits<{
   'update:modelValue': [value: (string | number)[]]
-  'change': [value: (string | number)[]]
+  change: [value: (string | number)[]]
 }>()
 
 const isOpen = ref(false)
@@ -83,11 +88,11 @@ const dropdownRef = ref<HTMLElement | null>(null)
 const panels = computed<CascaderOption[][]>(() => {
   const result: CascaderOption[][] = []
   let currentOptions: CascaderOption[] = props.field.options
-  
+
   result.push(currentOptions)
-  
+
   for (const value of selectedPath.value) {
-    const option = currentOptions.find(o => o.value === value)
+    const option = currentOptions.find((o) => o.value === value)
     if (option && option.children && option.children.length > 0) {
       currentOptions = option.children
       result.push(currentOptions)
@@ -95,18 +100,18 @@ const panels = computed<CascaderOption[][]>(() => {
       break
     }
   }
-  
+
   return result
 })
 
 const displayText = computed(() => {
   if (selectedPath.value.length === 0) return ''
-  
+
   const labels: string[] = []
   let options: CascaderOption[] = props.field.options
-  
+
   for (const value of selectedPath.value) {
-    const option = options.find(o => o.value === value)
+    const option = options.find((o) => o.value === value)
     if (option) {
       labels.push(option.label)
       if (option.children && option.children.length > 0) {
@@ -114,7 +119,7 @@ const displayText = computed(() => {
       }
     }
   }
-  
+
   return labels.join(' / ')
 })
 
@@ -128,13 +133,15 @@ function isSelected(option: CascaderOption, panelIndex: number): boolean {
 }
 
 function isExpanded(option: CascaderOption, panelIndex: number): boolean {
-  return selectedPath.value[panelIndex] === option.value && option.children && option.children.length > 0
+  return (
+    selectedPath.value[panelIndex] === option.value && option.children && option.children.length > 0
+  )
 }
 
 function selectOption(option: CascaderOption, panelIndex: number) {
   const newPath = [...selectedPath.value.slice(0, panelIndex), option.value]
   selectedPath.value = newPath
-  
+
   if (!option.children || option.children.length === 0) {
     emit('update:modelValue', newPath)
     emit('change', newPath)
@@ -144,16 +151,16 @@ function selectOption(option: CascaderOption, panelIndex: number) {
 }
 
 function validate() {
-  const rules: any[] = []
-  
+  const rules: ValidationRule[] = []
+
   if (props.field.required) {
     rules.push({ type: 'required' })
   }
-  
+
   if (props.field.validationRules) {
     rules.push(...props.field.validationRules)
   }
-  
+
   const result = validateField(props.modelValue, rules)
   hasError.value = !result.valid
   errorMessage.value = result.message || ''
@@ -165,9 +172,12 @@ function handleClickOutside(event: MouseEvent) {
   }
 }
 
-watch(() => props.modelValue, (newValue) => {
-  selectedPath.value = [...(newValue || [])]
-})
+watch(
+  () => props.modelValue,
+  (newValue) => {
+    selectedPath.value = [...(newValue || [])]
+  }
+)
 
 onMounted(() => {
   document.addEventListener('click', handleClickOutside)
@@ -197,7 +207,9 @@ onUnmounted(() => {
   border-radius: var(--radius-md);
   background-color: var(--color-background-white);
   cursor: pointer;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 
 .cascader-trigger:hover {
