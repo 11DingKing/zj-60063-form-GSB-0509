@@ -4,7 +4,7 @@
       <div class="designer-view__header-left">
         <button class="designer-view__btn designer-view__btn--ghost" @click="goBack">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
+            <path d="M19 12H5M12 19l-7-7 7-7" />
           </svg>
           返回
         </button>
@@ -18,7 +18,7 @@
           />
         </div>
       </div>
-      
+
       <div class="designer-view__header-right">
         <button
           class="designer-view__btn designer-view__btn--secondary"
@@ -38,26 +38,20 @@
         >
           预览
         </button>
-        <button
-          class="designer-view__btn designer-view__btn--primary"
-          @click="saveForm"
-        >
+        <button class="designer-view__btn designer-view__btn--primary" @click="saveForm">
           保存
         </button>
-        <button
-          class="designer-view__btn designer-view__btn--primary"
-          @click="publishForm"
-        >
+        <button class="designer-view__btn designer-view__btn--primary" @click="publishForm">
           发布
         </button>
       </div>
     </div>
-    
+
     <div class="designer-view__body">
       <div class="designer-view__panel designer-view__panel--left">
         <ComponentPanel />
       </div>
-      
+
       <div class="designer-view__canvas">
         <CanvasArea
           :form-config="formStore.currentForm"
@@ -68,7 +62,7 @@
           @delete-field="formStore.deleteField"
         />
       </div>
-      
+
       <div class="designer-view__panel designer-view__panel--right">
         <PropertyPanel
           :form-config="formStore.currentForm"
@@ -78,34 +72,39 @@
         />
       </div>
     </div>
-    
+
     <Teleport to="body">
-      <div v-if="showPreview" class="designer-view__modal-overlay" @click.self="showPreview = false">
+      <div
+        v-if="showPreview"
+        class="designer-view__modal-overlay"
+        @click.self="showPreview = false"
+      >
         <div class="designer-view__modal designer-view__modal--preview">
           <div class="designer-view__modal-header">
             <h3 class="designer-view__modal-title">预览表单</h3>
             <button class="designer-view__modal-close" @click="showPreview = false">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 6L6 18M6 6l12 12"/>
+                <path d="M18 6L6 18M6 6l12 12" />
               </svg>
             </button>
           </div>
           <div class="designer-view__modal-body">
-            <FormRenderer
-              :form-config="formStore.currentForm"
-              @submit="handlePreviewSubmit"
-            />
+            <FormRenderer :form-config="formStore.currentForm" @submit="handlePreviewSubmit" />
           </div>
         </div>
       </div>
-      
-      <div v-if="showConfigModal" class="designer-view__modal-overlay" @click.self="showConfigModal = false">
+
+      <div
+        v-if="showConfigModal"
+        class="designer-view__modal-overlay"
+        @click.self="showConfigModal = false"
+      >
         <div class="designer-view__modal designer-view__modal--config">
           <div class="designer-view__modal-header">
             <h3 class="designer-view__modal-title">表单配置</h3>
             <button class="designer-view__modal-close" @click="showConfigModal = false">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 6L6 18M6 6l12 12"/>
+                <path d="M18 6L6 18M6 6l12 12" />
               </svg>
             </button>
           </div>
@@ -119,7 +118,7 @@
                 placeholder="请输入表单标题"
               />
             </div>
-            
+
             <div class="form-config-group">
               <label class="form-config-label">表单描述</label>
               <textarea
@@ -129,7 +128,7 @@
                 rows="3"
               ></textarea>
             </div>
-            
+
             <div class="form-config-group">
               <label class="form-config-label">提交按钮文字</label>
               <input
@@ -139,7 +138,7 @@
                 placeholder="提交"
               />
             </div>
-            
+
             <div class="form-config-group">
               <label class="form-config-label">提交后提示语</label>
               <textarea
@@ -149,19 +148,16 @@
                 rows="2"
               ></textarea>
             </div>
-            
+
             <div class="form-config-group">
               <label class="form-config-checkbox">
-                <input
-                  v-model="localConfig.allowDraft"
-                  type="checkbox"
-                />
+                <input v-model="localConfig.allowDraft" type="checkbox" />
                 <span>允许暂存草稿</span>
               </label>
             </div>
-            
+
             <div class="form-config-divider"></div>
-            
+
             <div class="form-config-group">
               <label class="form-config-label">
                 步骤配置
@@ -187,17 +183,13 @@
                     @click="removeStep(index)"
                   >
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M18 6L6 18M6 6l12 12"/>
+                      <path d="M18 6L6 18M6 6l12 12" />
                     </svg>
                   </button>
                 </div>
-                <button
-                  type="button"
-                  class="form-config-step-add"
-                  @click="addStep"
-                >
+                <button type="button" class="form-config-step-add" @click="addStep">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 5v14M5 12h14"/>
+                    <path d="M12 5v14M5 12h14" />
                   </svg>
                   添加步骤
                 </button>
@@ -205,7 +197,10 @@
             </div>
           </div>
           <div class="designer-view__modal-footer">
-            <button class="designer-view__btn designer-view__btn--secondary" @click="showConfigModal = false">
+            <button
+              class="designer-view__btn designer-view__btn--secondary"
+              @click="showConfigModal = false"
+            >
               取消
             </button>
             <button class="designer-view__btn designer-view__btn--primary" @click="saveFormConfig">
@@ -214,14 +209,18 @@
           </div>
         </div>
       </div>
-      
-      <div v-if="showTemplateModal" class="designer-view__modal-overlay" @click.self="showTemplateModal = false">
+
+      <div
+        v-if="showTemplateModal"
+        class="designer-view__modal-overlay"
+        @click.self="showTemplateModal = false"
+      >
         <div class="designer-view__modal designer-view__modal--template">
           <div class="designer-view__modal-header">
             <h3 class="designer-view__modal-title">选择模板</h3>
             <button class="designer-view__modal-close" @click="showTemplateModal = false">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 6L6 18M6 6l12 12"/>
+                <path d="M18 6L6 18M6 6l12 12" />
               </svg>
             </button>
           </div>
@@ -245,14 +244,18 @@
           </div>
         </div>
       </div>
-      
-      <div v-if="showPublishSuccess" class="designer-view__modal-overlay" @click.self="showPublishSuccess = false">
+
+      <div
+        v-if="showPublishSuccess"
+        class="designer-view__modal-overlay"
+        @click.self="showPublishSuccess = false"
+      >
         <div class="designer-view__modal designer-view__modal--publish">
           <div class="designer-view__modal-body">
             <div class="publish-success">
               <div class="publish-success__icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="20 6 9 17 4 12"/>
+                  <polyline points="20 6 9 17 4 12" />
                 </svg>
               </div>
               <h3 class="publish-success__title">发布成功！</h3>
@@ -264,9 +267,7 @@
                   :value="publishLink"
                   class="publish-success__input"
                 />
-                <button class="publish-success__copy" @click="copyPublishLink">
-                  复制
-                </button>
+                <button class="publish-success__copy" @click="copyPublishLink">复制</button>
               </div>
               <div class="publish-success__actions">
                 <button
@@ -302,7 +303,7 @@ const router = useRouter()
 const formStore = useFormStore()
 const publishLinkInput = ref<HTMLInputElement | null>(null)
 
-const { currentForm, selectedFieldId, selectedField } = storeToRefs(formStore)
+const { currentForm, selectedField } = storeToRefs(formStore)
 
 const formTitle = computed({
   get: () => currentForm.value?.title || '',
@@ -310,7 +311,7 @@ const formTitle = computed({
     if (currentForm.value) {
       currentForm.value.title = value
     }
-  }
+  },
 })
 
 const showPreview = ref(false)
@@ -325,7 +326,7 @@ const localConfig = reactive<Partial<FormConfig>>({
   submitButtonText: '提交',
   submitMessage: '提交成功！感谢您的填写。',
   allowDraft: false,
-  steps: [{ id: generateId(), title: '步骤 1' }]
+  steps: [{ id: generateId(), title: '步骤 1' }],
 })
 
 watch(
@@ -337,7 +338,9 @@ watch(
       localConfig.submitButtonText = form.submitButtonText
       localConfig.submitMessage = form.submitMessage
       localConfig.allowDraft = form.allowDraft
-      localConfig.steps = JSON.parse(JSON.stringify(form.steps || [{ id: generateId(), title: '步骤 1' }]))
+      localConfig.steps = JSON.parse(
+        JSON.stringify(form.steps || [{ id: generateId(), title: '步骤 1' }])
+      )
     }
   },
   { immediate: true, deep: true }
@@ -402,7 +405,7 @@ function saveFormConfig() {
     submitButtonText: localConfig.submitButtonText,
     submitMessage: localConfig.submitMessage,
     allowDraft: localConfig.allowDraft,
-    steps: JSON.parse(JSON.stringify(localConfig.steps))
+    steps: JSON.parse(JSON.stringify(localConfig.steps)),
   })
   showConfigModal.value = false
 }
@@ -410,7 +413,7 @@ function saveFormConfig() {
 function addStep() {
   const newStep: StepConfig = {
     id: generateId(),
-    title: `步骤 ${localConfig.steps.length + 1}`
+    title: `步骤 ${localConfig.steps.length + 1}`,
   }
   localConfig.steps.push(newStep)
 }
@@ -426,8 +429,7 @@ function loadTemplate(template: FormTemplate) {
   showTemplateModal.value = false
 }
 
-function handlePreviewSubmit(data: Record<string, any>) {
-  console.log('预览提交数据:', data)
+function handlePreviewSubmit(_data: Record<string, unknown>) {
   alert('表单提交成功！（预览模式）')
 }
 
@@ -743,7 +745,7 @@ function copyPublishLink() {
   cursor: pointer;
 }
 
-.form-config-checkbox input[type="checkbox"] {
+.form-config-checkbox input[type='checkbox'] {
   width: 18px;
   height: 18px;
   accent-color: var(--color-primary);

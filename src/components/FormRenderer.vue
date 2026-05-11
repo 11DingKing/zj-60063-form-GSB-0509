@@ -6,7 +6,7 @@
         {{ formConfig.description }}
       </p>
     </div>
-    
+
     <div class="form-renderer__steps" v-if="showSteps && steps.length > 1">
       <div
         v-for="(step, index) in steps"
@@ -14,13 +14,13 @@
         class="form-renderer__step"
         :class="{
           'form-renderer__step--active': index === currentStep,
-          'form-renderer__step--completed': index < currentStep
+          'form-renderer__step--completed': index < currentStep,
         }"
       >
         <div class="form-renderer__step-number">
           <span v-if="index >= currentStep">{{ index + 1 }}</span>
           <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="20 6 9 17 4 12"/>
+            <polyline points="20 6 9 17 4 12" />
           </svg>
         </div>
         <span class="form-renderer__step-label">{{ step.title }}</span>
@@ -32,13 +32,9 @@
         :class="{ 'form-renderer__step-line--completed': index < currentStep }"
       ></div>
     </div>
-    
+
     <div class="form-renderer__content">
-      <div
-        v-for="field in visibleFields"
-        :key="field.id"
-        class="form-renderer__field"
-      >
+      <div v-for="field in visibleFields" :key="field.id" class="form-renderer__field">
         <template v-if="field.type === 'group'">
           <fieldset class="form-renderer__group">
             <legend class="form-renderer__group-legend">
@@ -71,7 +67,7 @@
         </template>
       </div>
     </div>
-    
+
     <div class="form-renderer__footer" v-if="showFooter">
       <div class="form-renderer__footer-actions">
         <button
@@ -82,7 +78,7 @@
         >
           上一步
         </button>
-        
+
         <button
           v-if="showSteps && currentStep < steps.length - 1"
           type="button"
@@ -91,7 +87,7 @@
         >
           下一步
         </button>
-        
+
         <button
           v-if="!showSteps || currentStep === steps.length - 1"
           type="button"
@@ -100,7 +96,7 @@
         >
           {{ formConfig?.submitButtonText || '提交' }}
         </button>
-        
+
         <button
           v-if="formConfig?.allowDraft"
           type="button"
@@ -135,11 +131,11 @@ const props = withDefaults(defineProps<Props>(), {
   disabled: false,
   showHeader: true,
   showFooter: true,
-  showSteps: true
+  showSteps: true,
 })
 
 const emit = defineEmits<{
-  'submit': [data: Record<string, any>]
+  submit: [data: Record<string, any>]
   'save-draft': [data: Record<string, any>]
   'field-change': [fieldId: string, value: any]
 }>()
@@ -157,25 +153,25 @@ const allFields = computed<Field[]>(() => {
 })
 
 const currentStepFields = computed<Field[]>(() => {
-  return allFields.value.filter(f => (f.step || 0) === currentStep.value)
+  return allFields.value.filter((f) => (f.step || 0) === currentStep.value)
 })
 
 function isFieldVisible(field: Field, data: Record<string, any>): boolean {
   if (!field.displayCondition) return true
-  
+
   const { triggerFieldId, operator, conditionValue } = field.displayCondition
   const triggerValue = data[triggerFieldId]
-  
+
   return evaluateCondition(operator, triggerValue, conditionValue)
 }
 
 const visibleFields = computed<Field[]>(() => {
-  return currentStepFields.value.filter(field => isFieldVisible(field, formData))
+  return currentStepFields.value.filter((field) => isFieldVisible(field, formData))
 })
 
 function getVisibleGroupFields(groupField: Field & { children: Field[] }): Field[] {
   if (!groupField.children) return []
-  return groupField.children.filter(field => isFieldVisible(field, formData))
+  return groupField.children.filter((field) => isFieldVisible(field, formData))
 }
 
 function updateFieldValue(fieldId: string, value: any) {
@@ -183,32 +179,32 @@ function updateFieldValue(fieldId: string, value: any) {
 }
 
 function validateCurrentStep(): boolean {
-  const fieldsToValidate = visibleFields.value.filter(f => 
-    f.type !== 'divider' && f.type !== 'group'
+  const fieldsToValidate = visibleFields.value.filter(
+    (f) => f.type !== 'divider' && f.type !== 'group'
   )
-  
+
   let isValid = true
   validationErrors.value = {}
-  
+
   for (const field of fieldsToValidate) {
     const value = formData[field.id]
     const rules: any[] = []
-    
+
     if (field.required) {
       rules.push({ type: 'required' })
     }
-    
+
     if (field.validationRules) {
       rules.push(...field.validationRules)
     }
-    
+
     const result = validateField(value, rules)
     if (!result.valid) {
       isValid = false
       validationErrors.value[field.id] = result.message || '字段校验失败'
     }
   }
-  
+
   return isValid
 }
 
@@ -234,9 +230,13 @@ function handleSaveDraft() {
   emit('save-draft', { ...formData })
 }
 
-watch(() => props.initialData, (newData) => {
-  Object.assign(formData, newData)
-}, { immediate: true, deep: true })
+watch(
+  () => props.initialData,
+  (newData) => {
+    Object.assign(formData, newData)
+  },
+  { immediate: true, deep: true }
+)
 </script>
 
 <style scoped>

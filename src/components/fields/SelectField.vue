@@ -12,11 +12,7 @@
       class="form-select"
     >
       <option value="" disabled>{{ field.placeholder || '请选择' }}</option>
-      <option
-        v-for="option in field.options"
-        :key="option.value"
-        :value="option.value"
-      >
+      <option v-for="option in field.options" :key="option.value" :value="option.value">
         {{ option.label }}
       </option>
     </select>
@@ -37,12 +33,12 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: null,
-  disabled: false
+  disabled: false,
 })
 
 const emit = defineEmits<{
   'update:modelValue': [value: string | number | null]
-  'change': [value: string | number | null]
+  change: [value: string | number | null]
 }>()
 
 const hasError = ref(false)
@@ -50,8 +46,8 @@ const errorMessage = ref('')
 
 function handleChange(event: Event) {
   const target = event.target as HTMLSelectElement
-  const value = target.value === '' ? null : 
-    (isNaN(Number(target.value)) ? target.value : Number(target.value))
+  const value =
+    target.value === '' ? null : isNaN(Number(target.value)) ? target.value : Number(target.value)
   emit('update:modelValue', value)
   emit('change', value)
   validate()
@@ -59,15 +55,15 @@ function handleChange(event: Event) {
 
 function validate() {
   const rules: any[] = []
-  
+
   if (props.field.required) {
     rules.push({ type: 'required' })
   }
-  
+
   if (props.field.validationRules) {
     rules.push(...props.field.validationRules)
   }
-  
+
   const result = validateField(props.modelValue, rules)
   hasError.value = !result.valid
   errorMessage.value = result.message || ''
@@ -83,7 +79,9 @@ function validate() {
   font-size: var(--font-size-sm);
   color: var(--color-text-primary);
   background-color: var(--color-background-white);
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
   outline: none;
   cursor: pointer;
   appearance: none;
