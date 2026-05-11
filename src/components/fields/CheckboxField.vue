@@ -41,12 +41,12 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: () => [],
-  disabled: false
+  disabled: false,
 })
 
 const emit = defineEmits<{
   'update:modelValue': [value: (string | number)[]]
-  'change': [value: (string | number)[]]
+  change: [value: (string | number)[]]
 }>()
 
 const hasError = ref(false)
@@ -59,13 +59,13 @@ function isChecked(value: string | number): boolean {
 function handleChange(value: string | number) {
   const currentValue = [...(props.modelValue || [])]
   const index = currentValue.indexOf(value)
-  
+
   if (index === -1) {
     currentValue.push(value)
   } else {
     currentValue.splice(index, 1)
   }
-  
+
   emit('update:modelValue', currentValue)
   emit('change', currentValue)
   validate()
@@ -73,15 +73,15 @@ function handleChange(value: string | number) {
 
 function validate() {
   const rules: any[] = []
-  
+
   if (props.field.required) {
     rules.push({ type: 'required' })
   }
-  
+
   if (props.field.validationRules) {
     rules.push(...props.field.validationRules)
   }
-  
+
   const result = validateField(props.modelValue, rules)
   hasError.value = !result.valid
   errorMessage.value = result.message || ''

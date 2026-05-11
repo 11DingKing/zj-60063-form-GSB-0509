@@ -2,11 +2,7 @@ export function generateId(): string {
   return 'field_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
 }
 
-export function evaluateCondition(
-  operator: string,
-  fieldValue: any,
-  conditionValue: any
-): boolean {
+export function evaluateCondition(operator: string, fieldValue: any, conditionValue: any): boolean {
   switch (operator) {
     case 'equals':
       return fieldValue === conditionValue
@@ -30,8 +26,12 @@ export function validateField(value: any, rules: any[]): { valid: boolean; messa
   for (const rule of rules) {
     switch (rule.type) {
       case 'required':
-        if (value === undefined || value === null || value === '' || 
-            (Array.isArray(value) && value.length === 0)) {
+        if (
+          value === undefined ||
+          value === null ||
+          value === '' ||
+          (Array.isArray(value) && value.length === 0)
+        ) {
           return { valid: false, message: rule.message || '此字段为必填项' }
         }
         break
@@ -75,12 +75,12 @@ export function validateField(value: any, rules: any[]): { valid: boolean; messa
 
 export function exportToCSV(data: any[], headers: { key: string; label: string }[]): string {
   const csvRows: string[] = []
-  
-  const headerRow = headers.map(h => `"${h.label}"`).join(',')
+
+  const headerRow = headers.map((h) => `"${h.label}"`).join(',')
   csvRows.push(headerRow)
-  
+
   for (const row of data) {
-    const values = headers.map(header => {
+    const values = headers.map((header) => {
       let value = row[header.key]
       if (value === undefined || value === null) {
         value = ''
@@ -93,7 +93,7 @@ export function exportToCSV(data: any[], headers: { key: string; label: string }
     })
     csvRows.push(values.join(','))
   }
-  
+
   return csvRows.join('\n')
 }
 
